@@ -26,6 +26,7 @@ const routes: Routes = [
                 loadChildren: './createads/createads.module#CreateadsModule'
             },
             {
+                
                 path:'deals',
                 loadChildren:'./deals/deals.module#DealsModule'
             }
@@ -33,7 +34,12 @@ const routes: Routes = [
             {
                 path:'edit',
                 loadChildren:'./edit/edit.module#EditModule'
+            },
+            {
+                path:'products',
+                loadChildren:'./createproducts/createproducts.module#CreateproductsModule'
             }
+
         ]
     }
 ];

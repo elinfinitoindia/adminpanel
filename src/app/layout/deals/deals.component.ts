@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatSort } from '@angular/material';
+import {MatTableDataSource} from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 
 export interface PeriodicElement {
   name: string;
@@ -26,14 +30,37 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./deals.component.scss']
 })
 export class DealsComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
+  displayedColumns: string[] = ['select','position', 'name', 'weight', 'symbol', 'action'];
+  dataSource = new MatTableDataSource(ELEMENT_DATA);;
+  selection = new SelectionModel<PeriodicElement>(true, []);
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
 
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+  checkboxLabel(row?: PeriodicElement): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
 
-  constructor() { }
+  constructor( private route:ActivatedRoute) {
+ 
+   }
 
   ngOnInit() {
+    let id = this.route.snapshot.params['id'];
   }
 
 }

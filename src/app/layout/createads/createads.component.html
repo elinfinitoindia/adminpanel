@@ -1,3 +1,45 @@
-<p>
-  createads works!
-</p>
+<div class="example-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Create ads</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="example-container">
+        <form #adsForm="ngForm" (ngSubmit)="createAds(adsForm.value)" novalidate>
+        <mat-form-field>
+          <input matInput placeholder="Enter Name" required [(ngModel)]="ads.Name" name="Name" Name="#ngModel"/>
+        </mat-form-field>
+        <mat-form-field>
+          <textarea matInput placeholder="Enter Description" required [(ngModel)]="ads.Description" name="Description"> </textarea>
+        </mat-form-field>
+        <!-- <mat-form-field>
+          <mat-select placeholder="Select Category" [(ngModel)]="ads.Category">
+            <mat-option *ngFor="let Category of categories" [value]="Category.ID" ngDefaultControl name="Category">
+              {{ Category.Name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <!-- <mat-form-field>
+          <mat-select placeholder="Select Image" [(ngModel)]="ads.Image">
+            <mat-option *ngFor="let image of images" [value]="image.ID" ngDefaultControl name="Images">
+              <img src="image.Url" alt="" />
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <mat-form-field>
+          <input matInput placeholder="Enter Link" required [(ngModel)]="ads.Url" name="Url" />
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="ads.EndOn" name="EndOn" required />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <!-- <button mat-raised-button color="primary" type="submit">Create</button> -->
+        <button type="submit" class="btn btn-success" [disabled]="adsForm.invalid">Submit</button>
+      </form>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div>
+</div>
