@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { LayoutComponent } from './layout.component';
-import { Screen1Component } from './screen1/screen1.component';
+
 
 
 const routes: Routes = [
@@ -22,6 +21,19 @@ const routes: Routes = [
                 path: 'createdeals',
                 loadChildren: './create-deals/create-deals.module#CreateDealsModule'
             },
+            {
+                path: 'createads',
+                loadChildren: './createads/createads.module#CreateadsModule'
+            },
+            {
+                path:'deals',
+                loadChildren:'./deals/deals.module#DealsModule'
+            }
+            ,
+            {
+                path:'edit',
+                loadChildren:'./edit/edit.module#EditModule'
+            }
         ]
     }
 ];

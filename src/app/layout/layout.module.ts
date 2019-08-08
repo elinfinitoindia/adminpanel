@@ -15,7 +15,6 @@ import { TopnavComponent } from './components/topnav/topnav.component';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { NavComponent } from './nav/nav.component';
-import { CreateaddsModule } from './createadds/createadds.module';
 import { CreateadsComponent } from './createads/createads.component';
 import { CreateproductsModule } from './createproducts/createproducts.module';
 import { CreateproductsComponent } from './createproducts/createproducts.component';
@@ -39,14 +38,8 @@ import { EditComponent } from '../Layout/edit/edit.component';
         MatMenuModule,
         MatListModule,
         TranslateModule,
-        CreateaddsModule,
-        CreateproductsModule,
-        CreateadsModule,
-        DealsModule,
-        AdsModule,
-        EditModule
     ],
-    declarations: [ LayoutComponent, NavComponent, TopnavComponent, SidebarComponent, CreateadsComponent, CreateproductsComponent, DealsComponent, EditComponent, ]
+    declarations: [ LayoutComponent, NavComponent, TopnavComponent, SidebarComponent ]
 
 })
 export class LayoutModule { }

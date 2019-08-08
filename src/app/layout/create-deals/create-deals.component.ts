@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Deals } from 'src/app/models/deals';
 
 @Component({
   selector: 'app-create-deals',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateDealsComponent implements OnInit {
 
+  deal;
   constructor() { }
 
   ngOnInit() {
+    this.deal = new Deals();
   }
 
 }
