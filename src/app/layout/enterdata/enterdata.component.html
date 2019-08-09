@@ -1,0 +1,57 @@
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Create Brand
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <form #brandForm="ngForm" (ngSubmit)="createBrand(brandForm.value)" novalidate>
+      <mat-form-field>
+        <input matInput placeholder="Enter Name" required [(ngModel)]="brand.Name" name="Name" />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Enter Name" required [(ngModel)]="brand.Image" name="Image" />
+      </mat-form-field>
+    
+      <input #file type="file" accept='image/*' (change)="preview(file.files)" />
+      <img [src]="image" height="200" *ngIf="image">
+      
+      <button mat-raised-button type="submit" [disabled]="brandForm.valid">Submit</button>
+    </form>
+  </mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Create Categories
+      </mat-panel-title>
+      <mat-panel-description> </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form #brandForm="ngForm" (ngSubmit)="createBrand(brandForm.value)" novalidate>
+      <mat-form-field>
+        <input matInput placeholder="Enter Name" required [(ngModel)]="brand.Name" name="Name" />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Enter Name" required [(ngModel)]="brand.Image" name="Image" />
+      </mat-form-field>
+      <button mat-raised-button type="submit" [disabled]="brandForm.valid">Submit</button>
+    </form>
+  </mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Create Stores
+      </mat-panel-title>
+      <mat-panel-description> </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form #brandForm="ngForm" (ngSubmit)="createBrand(brandForm.value)" novalidate>
+      <mat-form-field>
+        <input matInput placeholder="Enter Name" required [(ngModel)]="brand.Name" name="Name" />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Enter Name" required [(ngModel)]="brand.Image" name="Image" />
+      </mat-form-field>
+      <button mat-raised-button type="submit" [disabled]="brandForm.valid">Submit</button>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatSort } from '@angular/material';
-import {MatTableDataSource} from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
+import { PeriodicElement } from '../../dashboard/dashboard.component';
 
 export interface PeriodicElement {
   name: string;
@@ -12,8 +11,8 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+  {position: 1, name: 'prsateek', weight: 1.0079, symbol: 'H'},
+  {position: 2, name: 'Hdemnhdsfkjgh', weight: 4.0026, symbol: 'He'},
   {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
   {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
   {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
@@ -25,11 +24,12 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 @Component({
-  selector: 'app-deals',
-  templateUrl: './deals.component.html',
-  styleUrls: ['./deals.component.scss']
+  selector: 'app-adslist',
+  templateUrl: './adslist.component.html',
+  styleUrls: ['./adslist.component.scss']
 })
-export class DealsComponent implements OnInit {
+export class AdslistComponent implements OnInit {
+
   @ViewChild(MatSort) sort: MatSort;
   displayedColumns: string[] = ['select','position', 'name', 'weight', 'symbol', 'action'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);;
@@ -54,18 +54,9 @@ export class DealsComponent implements OnInit {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
-
-  constructor( private route:ActivatedRoute ,
-    private router: Router) {
- 
-   }
+  constructor() { }
 
   ngOnInit() {
-    let id = this.route.snapshot.params['id'];
-  }
-
-  edit(){
-    this.router.navigate(['/edit/',15]);
   }
 
 }

@@ -1,13 +1,42 @@
 <div id="sidebar">
-    <mat-nav-list>
-        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/dashboard']">
-            <mat-icon class="sidenav-icon">dashboard</mat-icon> {{ 'Dashboard' | translate }}
-        </a>
-        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/screen1']">
-            <mat-icon class="sidenav-icon">build</mat-icon> {{ 'Screen1' | translate }}
-        </a>
-        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/screen2']">
-            <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Screen2' | translate }}
-        </a>
-    </mat-nav-list>
+  <mat-nav-list>
+    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/dashboard']">
+      <mat-icon class="sidenav-icon">dashboard</mat-icon> {{ 'Dashboard' | translate }}
+    </a>
+
+    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/createdeals']">
+      <mat-icon class="sidenav-icon">build</mat-icon> {{ 'Create Deal' | translate }}
+    </a>
+
+    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/createads']">
+      <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Create Ads' | translate }}
+    </a>
+
+    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/products']">
+      <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Create Products' | translate }}
+    </a>
+    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/enterdata']">
+      <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Create Data' | translate }}
+    </a>
+
+    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/deals']">
+      <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Deals' | translate }}
+    </a>
+
+    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/deals/products']">
+      <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Products' | translate }}
+    </a>
+    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/deals/ads']">
+      <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Ads' | translate }}
+    </a>
+  
+
+    <!-- <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/edit']">
+      <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Edit Deals' | translate }}
+    </a>
+
+    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/edit']">
+      <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Edit Products' | translate }}
+    </a> -->
+  </mat-nav-list>
 </div>

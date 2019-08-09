@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatSort } from '@angular/material';
-import {MatTableDataSource} from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
+import { PeriodicElement } from '../../dashboard/dashboard.component';
+
 
 export interface PeriodicElement {
   name: string;
@@ -24,12 +24,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
 ];
 
+
 @Component({
-  selector: 'app-deals',
-  templateUrl: './deals.component.html',
-  styleUrls: ['./deals.component.scss']
+  selector: 'app-productlist',
+  templateUrl: './productlist.component.html',
+  styleUrls: ['./productlist.component.scss']
 })
-export class DealsComponent implements OnInit {
+export class ProductlistComponent implements OnInit {
+
   @ViewChild(MatSort) sort: MatSort;
   displayedColumns: string[] = ['select','position', 'name', 'weight', 'symbol', 'action'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);;
@@ -54,18 +56,9 @@ export class DealsComponent implements OnInit {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
-
-  constructor( private route:ActivatedRoute ,
-    private router: Router) {
- 
-   }
+  constructor() { }
 
   ngOnInit() {
-    let id = this.route.snapshot.params['id'];
-  }
-
-  edit(){
-    this.router.navigate(['/edit/',15]);
   }
 
 }
