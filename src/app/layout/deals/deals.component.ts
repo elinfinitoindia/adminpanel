@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort } from '@angular/material';
 import {MatTableDataSource} from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 export interface PeriodicElement {
   name: string;
@@ -55,12 +55,17 @@ export class DealsComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
 
-  constructor( private route:ActivatedRoute) {
+  constructor( private route:ActivatedRoute ,
+    private router: Router) {
  
    }
 
   ngOnInit() {
     let id = this.route.snapshot.params['id'];
+  }
+
+  edit(){
+    this.router.navigate(['/edit/',15]);
   }
 
 }

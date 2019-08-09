@@ -15,6 +15,9 @@
     <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/products']">
       <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Create Products' | translate }}
     </a>
+    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/enterdata']">
+      <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Create Data' | translate }}
+    </a>
 
     <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/deals']">
       <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Deals' | translate }}
@@ -26,13 +29,14 @@
     <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/deals/ads']">
       <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Ads' | translate }}
     </a>
+  
 
-    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/edit']">
+    <!-- <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/edit']">
       <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Edit Deals' | translate }}
     </a>
 
     <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/edit']">
       <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Edit Products' | translate }}
-    </a>
+    </a> -->
   </mat-nav-list>
 </div>
