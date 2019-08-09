@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSlideToggleModule, MatFormFieldModule, MatInputModule, MatCardModule, MatCheckboxModule, MatRadioModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatSliderModule, MatGridListModule, MatTableModule, MatPaginatorModule } from '@angular/material';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 @NgModule({
   declarations: [],
   imports: [
@@ -21,7 +21,8 @@ import { MatSlideToggleModule, MatFormFieldModule, MatInputModule, MatCardModule
     MatTableModule,
     MatTableModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatExpansionModule
   ],
   exports:[
     MatSlideToggleModule,
@@ -38,6 +39,7 @@ import { MatSlideToggleModule, MatFormFieldModule, MatInputModule, MatCardModule
     MatGridListModule,
     MatTableModule,
     MatPaginatorModule,
+    MatExpansionModule
   ]
 })
 export class AppMaterialModule { }

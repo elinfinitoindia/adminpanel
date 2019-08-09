@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Screen1Component implements OnInit {
 
+
+  brand:boolean = true;
   constructor() { }
 
   ngOnInit() {

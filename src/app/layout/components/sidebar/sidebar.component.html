@@ -20,8 +20,11 @@
       <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Deals' | translate }}
     </a>
 
-    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/deals']">
+    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/deals/products']">
       <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Products' | translate }}
+    </a>
+    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/deals/ads']">
+      <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Ads' | translate }}
     </a>
 
     <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/edit']">

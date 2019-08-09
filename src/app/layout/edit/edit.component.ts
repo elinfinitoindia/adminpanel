@@ -9,6 +9,7 @@ import { Deals } from 'src/app/models/deals';
 export class EditComponent implements OnInit {
 
   deal;
+  brand:boolean = true;
   constructor() { }
 
   ngOnInit() {
