@@ -1,3 +1,45 @@
-<p>
-  editproducts works!
-</p>
+<div class="example-container">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Create product</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="example-container">
+          <form #productForm="ngForm" (ngSubmit)="createproduct(productForm.value)" novalidate>
+          <mat-form-field>
+            <input matInput placeholder="Enter Name" required [(ngModel)]="product.Name" name="Name" Name="#ngModel"/>
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput placeholder="Enter Description" required [(ngModel)]="product.Description" name="Description"> </textarea>
+          </mat-form-field>
+          <!-- <mat-form-field>
+            <mat-select placeholder="Select Category" [(ngModel)]="product.Category">
+              <mat-option *ngFor="let Category of categories" [value]="Category.ID" ngDefaultControl name="Category">
+                {{ Category.Name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+          <!-- <mat-form-field>
+            <mat-select placeholder="Select Image" [(ngModel)]="product.Image">
+              <mat-option *ngFor="let image of images" [value]="image.ID" ngDefaultControl name="Images">
+                <img src="image.Url" alt="" />
+              </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+          <mat-form-field>
+            <input matInput placeholder="Enter Link" required [(ngModel)]="product.Url" name="Url" />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="product.EndOn" name="EndOn" required />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <!-- <button mat-raised-button color="primary" type="submit">Create</button> -->
+          <button type="submit" class="btn btn-success" [disabled]="productForm.invalid">Submit</button>
+        </form>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div>
+  </div>
