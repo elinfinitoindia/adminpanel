@@ -30,7 +30,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatListModule,
     MatMenuModule,
     MatSidenavModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatPaginatorModule
   ],
   exports:[
     MatSlideToggleModule,
@@ -55,7 +56,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatListModule,
     MatMenuModule,
     MatSidenavModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatPaginatorModule
   ]
 })
 export class AppMaterialModule { }

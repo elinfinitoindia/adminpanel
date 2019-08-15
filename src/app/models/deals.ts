@@ -1,7 +1,7 @@
 export class Deals {
   Name: string;
   Description: string;
-  Url: string;
+  Link: string;
   isActive: boolean;
   isFav: boolean;
   Image: string;

@@ -4,4 +4,7 @@ export class Products {
     Description: string;
     Link: string;
     Category: string;
+    Brand:string;
+    Subcategory:string;
+    isActive:boolean;
 }

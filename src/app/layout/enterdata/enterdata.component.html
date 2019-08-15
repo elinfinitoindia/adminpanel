@@ -27,14 +27,23 @@
       </mat-panel-title>
       <mat-panel-description> </mat-panel-description>
     </mat-expansion-panel-header>
-    <form #brandForm="ngForm" (ngSubmit)="createBrand(brandForm.value)" novalidate>
+    <form #categoryForm="ngForm" (ngSubmit)="createCategory(categoryForm.value)" novalidate>
       <mat-form-field>
-        <input matInput placeholder="Enter Name" required [(ngModel)]="brand.Name" name="Name" />
+        <input matInput placeholder="Enter Name" required [(ngModel)]="category.Name" name="Name" />
       </mat-form-field>
+      <!-- <mat-form-field>
+        <input matInput placeholder="Enter Name" required [(ngModel)]="category.Image" name="Image" />
+      </mat-form-field> -->
       <mat-form-field>
-        <input matInput placeholder="Enter Name" required [(ngModel)]="brand.Image" name="Image" />
+        <input matInput placeholder="Enter Name" required [(ngModel)]="category.CatType" name="CatType" />
       </mat-form-field>
-      <button mat-raised-button type="submit" [disabled]="brandForm.valid">Submit</button>
+      <!-- <mat-form-field>
+        <input matInput placeholder="Enter Name" required [(ngModel)]="category.Image" name="Image" />
+      </mat-form-field> -->
+      <!-- <mat-form-field>
+        <input matInput placeholder="Enter Name" required [(ngModel)]="category.Image" name="Image" />
+      </mat-form-field> -->
+      <button mat-raised-button type="submit" [disabled]="categoryForm.invalid">Submit</button>
     </form>
   </mat-expansion-panel>
   <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">

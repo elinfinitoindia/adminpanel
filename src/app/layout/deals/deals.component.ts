@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatSort } from '@angular/material';
+import { MatSort, MatPaginator } from '@angular/material';
 import {MatTableDataSource} from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -29,8 +29,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './deals.component.html',
   styleUrls: ['./deals.component.scss']
 })
-export class DealsComponent implements OnInit {
-  @ViewChild(MatSort) sort: MatSort;
+export class DealsComponent implements OnInit, AfterViewInit {
+  // @ViewChild(MatSort) sort: MatSort;
+  // @ViewChild(MatPaginator) paginator: MatPaginator;
+
   displayedColumns: string[] = ['select','position', 'name', 'weight', 'symbol', 'action'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);;
   selection = new SelectionModel<PeriodicElement>(true, []);
@@ -64,8 +66,13 @@ export class DealsComponent implements OnInit {
     let id = this.route.snapshot.params['id'];
   }
 
-  edit(){
-    this.router.navigate(['/edit/',15]);
+  ngAfterViewInit():void{
+    // this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator
+  }
+
+  edit(data){
+    this.router.navigate(['/edit/',data.position]);
   }
 
 }

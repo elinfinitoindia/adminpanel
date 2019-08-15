@@ -16,14 +16,14 @@
             <input matInput placeholder="Enter Short Description" required [(ngModel)]="deal.ShortDescription" name="SDescription" />
           </mat-form-field>
           <mat-form-field>
-            <mat-select placeholder="Select Brand" [(ngModel)]="deal.Brand">
-              <mat-option *ngFor="let brand of brands" [value]="brand.ID" ngDefaultControl name="Brands">
+            <mat-select placeholder="Select Brand" [(ngModel)]="deal.Brand"  (click)="getBrands()" >
+              <mat-option *ngFor="let brand of categories" [value]="brand.ID" ngDefaultControl name="Brands">
                 {{ brand.Name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
-            <mat-select placeholder="Select Category" [(ngModel)]="deal.Category">
+            <mat-select placeholder="Select Category" [(ngModel)]="deal.Category" (click)="getCategories()">
               <mat-option *ngFor="let Category of categories" [value]="Category.ID" ngDefaultControl name="Category">
                 {{ Category.Name }}
               </mat-option>
@@ -31,15 +31,15 @@
           </mat-form-field>
           <mat-form-field>
             <mat-select placeholder="Select Image" [(ngModel)]="deal.Logo">
-              <mat-option *ngFor="let image of images" [value]="image.ID" ngDefaultControl name="Images">
-                <img src="image.Url" alt="" />
+              <mat-option *ngFor="let image of categories" [value]="12354" ngDefaultControl name="Images">
+                <img src="http://elinfinitoindia.in/images/logo.png" alt="" />
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
-            <mat-select placeholder="Select Store">
-              <mat-option *ngFor="let store of stores" [value]="store.ID" [(ngModel)]="deal.Store" name="Store" ngDefaultControl>
-                {{ Category.viewValue }}
+            <mat-select placeholder="Select Store" (click)="getCategories()">
+              <mat-option *ngFor="let store of categories" [value]="store.ID" [(ngModel)]="deal.Store" name="Store" ngDefaultControl>
+                {{ store.Name }}
               </mat-option>
             </mat-select>
           </mat-form-field>

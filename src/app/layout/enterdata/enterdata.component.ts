@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, NgForm} from '@angular/forms';
+import { DataService } from 'src/app/shared/services/data.service';
 @Component({
   selector: 'app-enterdata',
   templateUrl: './enterdata.component.html',
@@ -10,8 +11,11 @@ export class EnterdataComponent implements OnInit {
   brand:boolean = true;
   panelOpenState = false;
   image;
-  imagePath
-  constructor() { }
+  imagePath;
+  category:any = {};
+  constructor(
+    private dataService:DataService
+  ) { }
 
   ngOnInit() {
   }
@@ -33,6 +37,12 @@ export class EnterdataComponent implements OnInit {
     reader.onload = (_event) => { 
       this.image = reader.result; 
     }
+  }
+
+  createCategory(data){
+    this.dataService.createCategories(data).subscribe((res:any)=>{
+      console.log(res);
+    })
   }
 
 

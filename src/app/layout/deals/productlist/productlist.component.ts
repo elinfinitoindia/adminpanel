@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { PeriodicElement } from '../../dashboard/dashboard.component';
+import { Router } from '@angular/router';
 
 
 export interface PeriodicElement {
@@ -56,9 +57,17 @@ export class ProductlistComponent implements OnInit {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
-  constructor() { }
+  constructor(
+    private router:Router
+  ) { }
 
   ngOnInit() {
+  }
+
+
+
+  edit(data){
+    this.router.navigate(['/edit/',data.position]);
   }
 
 }
