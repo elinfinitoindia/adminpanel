@@ -5,7 +5,7 @@
       </mat-card-header>
       <mat-card-content>
         <div class="example-container">
-          <form #productForm="ngForm" (ngSubmit)="createproduct(productForm.value)" novalidate>
+          <form #productForm="ngForm" (ngSubmit)="editProduct(productForm.value)" novalidate>
           <mat-form-field>
             <input matInput placeholder="Enter Name" required [(ngModel)]="product.Name" name="Name" Name="#ngModel"/>
           </mat-form-field>

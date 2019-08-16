@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
     displayedColumns = ['position', 'name', 'weight', 'symbol'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
     places: Array<any> = [];
+    deals
 
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim(); // Remove whitespace
@@ -66,5 +67,7 @@ export class DashboardComponent implements OnInit {
         ];
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.deals = 25;
+    }
 }

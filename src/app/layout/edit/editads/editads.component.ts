@@ -27,4 +27,9 @@ export class EditadsComponent implements OnInit {
 
   }
 
+
+  editAds(data){
+    console.log(data);
+  }
+
 }

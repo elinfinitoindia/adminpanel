@@ -64,3 +64,42 @@
     </form>
   </mat-expansion-panel>
 </mat-accordion>
+
+
+<div class="example-container">
+  <mat-tab-group (selectedTabChange)="selectTabChange($event)">
+    <mat-tab label="Brands">   <mat-list>
+      <mat-list-item *ngFor="let data of items">
+        <img matListAvatar src="http://elinfinitoindia.in/images/logo.png" alt="...">
+        <h3 matLine> {{data.Name}} </h3>
+        <p matLine>
+          <!-- <span> {{message.CatType}} </span>
+          <span class="demo-2"> -- {{message.content}} </span> -->
+        </p>
+        <button mat-list-item (click)="edit(data)"> Edit </button>
+      </mat-list-item>
+    </mat-list> </mat-tab>
+    <mat-tab label="Categories">   <mat-list>
+      <mat-list-item *ngFor="let data of items">
+        <img matListAvatar src="..." alt="...">
+        <h3 matLine> {{data.Name}} </h3>
+        <p matLine>
+          <!-- <span> {{message.CatType}} </span>
+          <span class="demo-2"> -- {{message.content}} </span> -->
+        </p>
+        <button mat-list-item (click)="save()"> Save </button>
+      </mat-list-item>
+    </mat-list> </mat-tab>
+    <mat-tab label="Stores">   <mat-list>
+      <mat-list-item *ngFor="let data of items">
+        <img matListAvatar src="..." alt="...">
+        <h3 matLine> {{data.Name}} </h3>
+        <p matLine>
+          <!-- <span> {{message.CatType}} </span>
+          <span class="demo-2"> -- {{message.content}} </span> -->
+        </p>
+        <button mat-list-item (click)="save()"> Save </button>
+      </mat-list-item>
+    </mat-list> </mat-tab>
+  </mat-tab-group>
+</div>

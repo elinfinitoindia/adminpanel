@@ -13,11 +13,22 @@ export class EnterdataComponent implements OnInit {
   image;
   imagePath;
   category:any = {};
+  items:any = [];
   constructor(
     private dataService:DataService
   ) { }
 
   ngOnInit() {
+this.items = [ 
+  {
+    "Name":"One"
+  },
+  {
+    "Name":"Two"
+  }
+]
+
+    
   }
 
 
@@ -43,6 +54,24 @@ export class EnterdataComponent implements OnInit {
     this.dataService.createCategories(data).subscribe((res:any)=>{
       console.log(res);
     })
+  }
+
+  edit(data){
+    console.log(data);
+  }
+
+  selectTabChange(data){
+    console.log(data)
+    if(data.index == 1){
+      this.dataService.getStores().subscribe((res:any)=>{
+        console.log(res);
+      })
+    }
+    if(data.index == 2){
+      this.dataService.getCategories().subscribe((res:any)=>{
+        console.log(res);
+      })
+    }
   }
 
 

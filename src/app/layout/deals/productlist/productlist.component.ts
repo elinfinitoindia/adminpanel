@@ -47,9 +47,8 @@ export class ProductlistComponent implements OnInit {
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+    this.isAllSelected() ? this.selection.clear() :this.changeAllEvent(this.selection)
+ 
   }
   checkboxLabel(row?: PeriodicElement): string {
     if (!row) {
@@ -68,6 +67,20 @@ export class ProductlistComponent implements OnInit {
 
   edit(data){
     this.router.navigate(['/edit/',data.position]);
+  }
+
+
+  changeEvent($event , row){
+    this.selection.toggle(row)
+    if($event.checked){
+       console.log(row);
+      }
+    
+  }
+  
+  changeAllEvent( selection){
+    this.dataSource.data.forEach(row => this.selection.select(row));
+    console.log(this.selection.selected);
   }
 
 }

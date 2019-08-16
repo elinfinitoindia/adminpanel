@@ -6,53 +6,53 @@
     <mat-card-content>
       <div class="example-container">
         <form #dealForm="ngForm" (ngSubmit)="editDeal(dealForm.value)">
-        <mat-form-field>
-          <input matInput placeholder="Enter Name" required [(ngModel)]="deal.Name" name="Name" />
-        </mat-form-field>
-        <mat-form-field>
-          <textarea matInput placeholder="Enter Description" required [(ngModel)]="deal.Description" name="de"> </textarea>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Enter Short Description" required [(ngModel)]="deal.ShortDescription" name="dsfg" />
-        </mat-form-field>
-        <mat-form-field>
-          <mat-select placeholder="Select Brand" [(ngModel)]="deal.Brand">
-            <mat-option *ngFor="let brand of brands" [value]="brand.ID" ngDefaultControl name="Brands">
-              {{ brand.Name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-select placeholder="Select Category" [(ngModel)]="deal.Category">
-            <mat-option *ngFor="let Category of categories" [value]="Category.ID" ngDefaultControl name="Category">
-              {{ Category.Name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-select placeholder="Select Image" [(ngModel)]="deal.Logo">
-            <mat-option *ngFor="let image of images" [value]="image.ID" ngDefaultControl name="Images">
-              <img src="image.Url" alt="" />
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-select placeholder="Select Store">
-            <mat-option *ngFor="let store of stores" [value]="store.ID" [(ngModel)]="deal.Store" name="something" ngDefaultControl>
-              {{ Category.viewValue }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Enter Link" required [(ngModel)]="deal.Url" name="Link" />
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="deal.EndOn" />
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <button mat-raised-button color="primary" type="submit">Create</button>
-      </form>
+          <mat-form-field>
+            <input matInput placeholder="Enter Name" required [(ngModel)]="deal.Name" name="Name" />
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput placeholder="Enter Description" required [(ngModel)]="deal.Description" name="de"> </textarea>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Enter Short Description" required [(ngModel)]="deal.ShortDescription" name="dsfg" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select placeholder="Select Brand" [(ngModel)]="deal.Brand">
+              <mat-option *ngFor="let brand of brands" [value]="brand.ID" ngDefaultControl name="Brands">
+                {{ brand.Name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select placeholder="Select Category" [(ngModel)]="deal.Category">
+              <mat-option *ngFor="let Category of categories" [value]="Category.ID" ngDefaultControl name="Category">
+                {{ Category.Name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select placeholder="Select Image" [(ngModel)]="deal.Logo">
+              <mat-option *ngFor="let image of images" [value]="image.ID" ngDefaultControl name="Images">
+                <img src="image.Url" alt="" />
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select placeholder="Select Store">
+              <mat-option *ngFor="let store of stores" [value]="store.ID" [(ngModel)]="deal.Store" name="something" ngDefaultControl>
+                {{ Category.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Enter Link" required [(ngModel)]="deal.Url" name="Link" />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="deal.EndOn" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit" [disabled]="dealForm.invalid">Create</button>
+        </form>
       </div>
     </mat-card-content>
   </mat-card>

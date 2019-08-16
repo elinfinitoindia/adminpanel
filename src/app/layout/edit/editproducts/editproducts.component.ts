@@ -28,4 +28,8 @@ export class EditproductsComponent implements OnInit {
     return true;
 }
 
+editProduct(data){
+  console.log(data);
+}
+
 }

@@ -11,16 +11,18 @@ export class CreateDealsComponent implements OnInit {
 
   deal;
   categories;
+  brands;
+  stores;
   constructor(
     private dataService: DataService
   ) { }
 
   ngOnInit() {
     this.deal = new Deals();
-    this.dataService.getCategories().subscribe((res:any)=>{
-      this.categories = res;
-      console.log(this.categories)
-    })
+    // this.dataService.getCategories().subscribe((res:any)=>{
+    //   this.categories = res;
+    //   console.log(this.categories)
+    // })
     
   }
 
