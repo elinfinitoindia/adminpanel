@@ -3,7 +3,7 @@ import { MatSort, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { PeriodicElement } from '../../dashboard/dashboard.component';
 import { Router } from '@angular/router';
-
+import {Products } from '../../../models/products';
 
 export interface PeriodicElement {
   name: string;
@@ -34,6 +34,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class ProductlistComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
+  products;
   displayedColumns: string[] = ['select','position', 'name', 'weight', 'symbol', 'action'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);;
   selection = new SelectionModel<PeriodicElement>(true, []);
@@ -58,7 +59,9 @@ export class ProductlistComponent implements OnInit {
   }
   constructor(
     private router:Router
-  ) { }
+  ) { 
+    this.products = new Products();
+  }
 
   ngOnInit() {
   }
@@ -66,7 +69,7 @@ export class ProductlistComponent implements OnInit {
 
 
   edit(data){
-    this.router.navigate(['/edit/',data.position]);
+    this.router.navigate(['/edit/editproducts/',data.position]);
   }
 
 

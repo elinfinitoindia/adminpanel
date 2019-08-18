@@ -73,3 +73,4 @@ import 'zone.js/dist/zone';
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+(window as any).global = window;

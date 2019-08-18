@@ -11,3 +11,9 @@
   mat-form-field {
   width:100%;
   }
+
+  .mat-select-panel .mat-optgroup-label, .mat-select-panel .mat-option {
+    font-size: inherit;
+    line-height: 3em;
+    height: 6em !important;
+}

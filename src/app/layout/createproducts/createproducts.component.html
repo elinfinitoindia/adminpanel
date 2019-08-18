@@ -14,8 +14,15 @@
           </mat-form-field>
           <mat-form-field>
             <mat-select placeholder="Select Category" [(ngModel)]="product.Category">
-              <mat-option *ngFor="let Category of categories" [value]="Category.ID" ngDefaultControl name="Category">
-                {{ Category.Name }}
+              <mat-option *ngFor="let category of categories" [value]="Category.ID" ngDefaultControl name="Category">
+                {{ category.Name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select placeholder="Select Category" [(ngModel)]="product.Category">
+              <mat-option *ngFor="let brand of brands" [value]="Brannd.ID" ngDefaultControl name="Category">
+                {{ brand.Name }}
               </mat-option>
             </mat-select>
           </mat-form-field>

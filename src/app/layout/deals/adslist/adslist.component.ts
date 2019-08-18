@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { PeriodicElement } from '../../dashboard/dashboard.component';
+import { Router } from '@angular/router';
 
 export interface PeriodicElement {
   name: string;
@@ -53,7 +54,7 @@ export class AdslistComponent implements OnInit {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
-  constructor() { }
+
 
   ngOnInit() {
   }
@@ -65,10 +66,18 @@ export class AdslistComponent implements OnInit {
       }
     
   }
+
+  constructor( 
+    private router:Router
+  ) {}
   
   changeAllEvent( selection){
     this.dataSource.data.forEach(row => this.selection.select(row));
     console.log(this.selection.selected);
+  }
+
+  edit(element){
+    this.router.navigate(['/edit/editads/', element.position])
   }
 
 }

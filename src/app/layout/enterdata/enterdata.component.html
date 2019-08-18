@@ -35,7 +35,25 @@
         <input matInput placeholder="Enter Name" required [(ngModel)]="category.Image" name="Image" />
       </mat-form-field> -->
       <mat-form-field>
-        <input matInput placeholder="Enter Name" required [(ngModel)]="category.CatType" name="CatType" />
+        <mat-select placeholder="select sub category" [(ngModel)]="category.CatType" name="CatType">
+            <mat-option  [value]="1">
+              Category
+            </mat-option>
+            <mat-option  [value]="2">
+                Sub Category
+              </mat-option>
+              <mat-option  [value]="3">
+                  Ads Category
+                </mat-option>
+          </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="category.CatType == 2 "> 
+        <mat-select placeholder="select sub category" [(ngModel)]="category.CatPID" name="parent category">
+          <mat-option *ngFor="let item of scategory" [value]="item.ID">
+            {{item.Name}}
+          </mat-option>
+        </mat-select>
+        <input matInput placeholder="Select Sub Category" [(ngModel)]="category.CatPID" name="Category" />
       </mat-form-field>
       <!-- <mat-form-field>
         <input matInput placeholder="Enter Name" required [(ngModel)]="category.Image" name="Image" />
@@ -80,14 +98,15 @@
       </mat-list-item>
     </mat-list> </mat-tab>
     <mat-tab label="Categories">   <mat-list>
-      <mat-list-item *ngFor="let data of items">
+      <mat-list-item *ngFor="let data of category">
         <img matListAvatar src="..." alt="...">
         <h3 matLine> {{data.Name}} </h3>
         <p matLine>
-          <!-- <span> {{message.CatType}} </span>
-          <span class="demo-2"> -- {{message.content}} </span> -->
+          <span *ngIf="data.CatType == '1'"> "Parent Category" </span>
+          <span *ngIf="data.CatType == '2'" class="subcategory"> "Child Category" </span>
+          <span class="demo-2" *ngIf="data.CatType == '3'"> "Ads Category" </span>
         </p>
-        <button mat-list-item (click)="save()"> Save </button>
+        <button mat-list-item (click)="edit(data)"> Edit </button>
       </mat-list-item>
     </mat-list> </mat-tab>
     <mat-tab label="Stores">   <mat-list>
