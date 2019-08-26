@@ -1,8 +1,31 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatSlideToggleModule, MatFormFieldModule, MatInputModule, MatCardModule, MatCheckboxModule, MatRadioModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule, MatSliderModule, MatGridListModule, MatTableModule, MatPaginatorModule, MatProgressSpinnerModule, MatButtonModule, MatIconModule, MatListModule, MatMenuModule, MatSidenavModule, MatToolbarModule, MatSortModule } from '@angular/material';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatTabsModule} from '@angular/material/tabs';
+import {
+  MatSlideToggleModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatRadioModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatSelectModule,
+  MatSliderModule,
+  MatGridListModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatButtonModule,
+  MatIconModule,
+  MatListModule,
+  MatMenuModule,
+  MatSidenavModule,
+  MatToolbarModule,
+  MatSortModule
+} from '@angular/material';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [],
   imports: [
@@ -34,9 +57,10 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatToolbarModule,
     MatPaginatorModule,
     MatTabsModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule
   ],
-  exports:[
+  exports: [
     MatSlideToggleModule,
     MatFormFieldModule,
     MatInputModule,
@@ -62,7 +86,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatToolbarModule,
     MatPaginatorModule,
     MatTabsModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule
   ]
 })
-export class AppMaterialModule { }
+export class AppMaterialModule {}

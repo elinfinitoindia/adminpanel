@@ -4,12 +4,11 @@
 
 export const environment = {
   production: false,
-  IdentityPoolId: "us-east-2:6c312384-10ee-4e13-bc24-57131b12ce73", 
-  configRegion :'us-east-2',
-  Bucket:"appimageselinfinito"
+  IdentityPoolId: 'us-east-2:6c312384-10ee-4e13-bc24-57131b12ce73',
+  configRegion: 'us-east-2',
+  Bucket: 'appimageselinfinito',
+  apiUrl: 'http://localhost:52044/api/'
 };
-
-export const apiUrl ="http://localhost:52044/api/";
 
 /*
  * For easier debugging in development mode, you can import the following file

@@ -11,13 +11,16 @@
         <input matInput placeholder="Enter Name" required [(ngModel)]="brand.Name" name="Name" />
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Enter Name" required [(ngModel)]="brand.Image" name="Image" />
+        <mat-select placeholder="Select Image" (selectionChange)="doSomething($event)" [(ngModel)]="brand.Logo" name="Logo">
+          <mat-option *ngFor="let image of images" [value]="image.key" style="height:6em" (change)="preview(image)">
+            <img src="https://appimageselinfinito.s3.us-east-2.amazonaws.com/{{ image.key }}" alt="" style="width:100px;height:50px;" />
+            {{ image.key }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
-    
-      <input #file type="file" accept='image/*' (change)="preview(file.files)" />
-      <img [src]="image" height="200" *ngIf="image">
-      
-      <button mat-raised-button type="submit" [disabled]="brandForm.valid">Submit</button>
+
+      {{ brandForm.value }}
+      <button mat-raised-button type="submit" [disabled]="brandForm.invalid">Submit</button>
     </form>
   </mat-expansion-panel>
   <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -36,31 +39,32 @@
       </mat-form-field> -->
       <mat-form-field>
         <mat-select placeholder="select sub category" [(ngModel)]="category.CatType" name="CatType">
-            <mat-option  [value]="1">
-              Category
-            </mat-option>
-            <mat-option  [value]="2">
-                Sub Category
-              </mat-option>
-              <mat-option  [value]="3">
-                  Ads Category
-                </mat-option>
-          </mat-select>
-      </mat-form-field>
-      <mat-form-field *ngIf="category.CatType == 2 "> 
-        <mat-select placeholder="select sub category" [(ngModel)]="category.CatPID" name="parent category">
-          <mat-option *ngFor="let item of scategory" [value]="item.ID">
-            {{item.Name}}
+          <mat-option [value]="1">
+            Category
+          </mat-option>
+          <mat-option [value]="2">
+            Sub Category
+          </mat-option>
+          <mat-option [value]="3">
+            Ads Category
           </mat-option>
         </mat-select>
-        <input matInput placeholder="Select Sub Category" [(ngModel)]="category.CatPID" name="Category" />
       </mat-form-field>
-      <!-- <mat-form-field>
-        <input matInput placeholder="Enter Name" required [(ngModel)]="category.Image" name="Image" />
-      </mat-form-field> -->
-      <!-- <mat-form-field>
-        <input matInput placeholder="Enter Name" required [(ngModel)]="category.Image" name="Image" />
-      </mat-form-field> -->
+      <mat-form-field *ngIf="category.CatType == 2">
+        <mat-select placeholder="select sub category" [(ngModel)]="category.CatPID" name="CatPID">
+          <mat-option *ngFor="let item of scategory" [value]="item.ID">
+            {{ item.Name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Select Image" (selectionChange)="doSomething($event)" [(ngModel)]="category.Logo" name="Logo">
+          <mat-option *ngFor="let image of images" [value]="image.key" style="height:6em" (change)="preview(image)">
+            <img src="https://appimageselinfinito.s3.us-east-2.amazonaws.com/{{ image.key }}" alt="" style="width:100px;height:50px;" />
+            {{ image.key }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <button mat-raised-button type="submit" [disabled]="categoryForm.invalid">Submit</button>
     </form>
   </mat-expansion-panel>
@@ -71,54 +75,66 @@
       </mat-panel-title>
       <mat-panel-description> </mat-panel-description>
     </mat-expansion-panel-header>
-    <form #brandForm="ngForm" (ngSubmit)="createBrand(brandForm.value)" novalidate>
+    <form #storeForm="ngForm" (ngSubmit)="createStore(storeForm.value)" novalidate>
       <mat-form-field>
-        <input matInput placeholder="Enter Name" required [(ngModel)]="brand.Name" name="Name" />
+        <input matInput placeholder="Enter Name" required [(ngModel)]="store.Name" name="Name" />
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Enter Name" required [(ngModel)]="brand.Image" name="Image" />
+        <mat-select placeholder="Select Image" (selectionChange)="doSomething($event)" [(ngModel)]="store.Logo" name="Logo">
+          <mat-option *ngFor="let image of images" [value]="image.key" style="height:6em" (change)="preview(image)">
+            <img src="https://appimageselinfinito.s3.us-east-2.amazonaws.com/{{ image.key }}" alt="" style="width:100px;height:50px;" />
+            {{ image.key }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
-      <button mat-raised-button type="submit" [disabled]="brandForm.valid">Submit</button>
+
+      {{ brandForm.value }}
+      <button mat-raised-button type="submit" [disabled]="storeForm.invalid">Submit</button>
     </form>
   </mat-expansion-panel>
 </mat-accordion>
 
-
 <div class="example-container">
   <mat-tab-group (selectedTabChange)="selectTabChange($event)">
-    <mat-tab label="Brands">   <mat-list>
-      <mat-list-item *ngFor="let data of items">
-        <img matListAvatar src="http://elinfinitoindia.in/images/logo.png" alt="...">
-        <h3 matLine> {{data.Name}} </h3>
-        <p matLine>
-          <!-- <span> {{message.CatType}} </span>
+    <mat-tab label="Brands">
+      <mat-list>
+        <mat-list-item *ngFor="let data of items">
+          <img matListAvatar src="http://elinfinitoindia.in/images/logo.png" alt="..." />
+          <h3 matLine>{{ data.Name }}</h3>
+          <p matLine>
+            <!-- <span> {{message.CatType}} </span>
           <span class="demo-2"> -- {{message.content}} </span> -->
-        </p>
-        <button mat-list-item (click)="edit(data)"> Edit </button>
-      </mat-list-item>
-    </mat-list> </mat-tab>
-    <mat-tab label="Categories">   <mat-list>
-      <mat-list-item *ngFor="let data of category">
-        <img matListAvatar src="..." alt="...">
-        <h3 matLine> {{data.Name}} </h3>
-        <p matLine>
-          <span *ngIf="data.CatType == '1'"> "Parent Category" </span>
-          <span *ngIf="data.CatType == '2'" class="subcategory"> "Child Category" </span>
-          <span class="demo-2" *ngIf="data.CatType == '3'"> "Ads Category" </span>
-        </p>
-        <button mat-list-item (click)="edit(data)"> Edit </button>
-      </mat-list-item>
-    </mat-list> </mat-tab>
-    <mat-tab label="Stores">   <mat-list>
-      <mat-list-item *ngFor="let data of items">
-        <img matListAvatar src="..." alt="...">
-        <h3 matLine> {{data.Name}} </h3>
-        <p matLine>
-          <!-- <span> {{message.CatType}} </span>
+          </p>
+          <button mat-list-item (click)="edit(data)">Edit</button>
+        </mat-list-item>
+      </mat-list>
+    </mat-tab>
+    <mat-tab label="Categories">
+      <mat-list>
+        <mat-list-item *ngFor="let data of category">
+          <img matListAvatar src="https://appimageselinfinito.s3.us-east-2.amazonaws.com/{{ data.Logo }}" alt="..." />
+          <h3 matLine>{{ data.Name }}</h3>
+          <p matLine>
+            <span *ngIf="data.CatType == '1'"> "Parent Category" </span>
+            <span *ngIf="data.CatType == '2'" class="subcategory"> "Child Category" </span>
+            <span class="demo-2" *ngIf="data.CatType == '3'"> "Ads Category" </span>
+          </p>
+          <button mat-list-item (click)="edit(data)">Edit</button>
+        </mat-list-item>
+      </mat-list>
+    </mat-tab>
+    <mat-tab label="Stores">
+      <mat-list>
+        <mat-list-item *ngFor="let data of items">
+          <img matListAvatar src="..." alt="..." />
+          <h3 matLine>{{ data.Name }}</h3>
+          <p matLine>
+            <!-- <span> {{message.CatType}} </span>
           <span class="demo-2"> -- {{message.content}} </span> -->
-        </p>
-        <button mat-list-item (click)="save()"> Save </button>
-      </mat-list-item>
-    </mat-list> </mat-tab>
+          </p>
+          <button mat-list-item (click)="save()">Save</button>
+        </mat-list-item>
+      </mat-list>
+    </mat-tab>
   </mat-tab-group>
 </div>

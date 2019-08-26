@@ -37,8 +37,8 @@ export class DealsComponent implements AfterViewInit, OnInit{
   isLoadingResults = true;
   isRateLimitReached = false;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {

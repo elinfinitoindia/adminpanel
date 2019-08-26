@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { DataService } from 'src/app/shared/services/data.service';
-import { ThrowStmt } from '@angular/compiler';
+import { SharedService } from 'src/app/shared/services/shared.service';
+import * as AWS from 'aws-sdk';
+
 @Component({
   selector: 'app-enterdata',
   templateUrl: './enterdata.component.html',
@@ -14,31 +15,36 @@ export class EnterdataComponent implements OnInit {
   imagePath;
   category: any = [];
   items: any = [];
-  scategory:any = [];
-  brandForm:NgForm;
-  
-  constructor(private dataService: DataService) {}
+  scategory: any = [];
+  s3;
+  images;
+  selectedImage;
+  store: any = [];
+
+  constructor(private dataService: DataService, private sharedService: SharedService) {}
 
   ngOnInit() {
-    this.items = [
-      {
-        Name: 'One'
-      },
-      {
-        Name: 'Two'
-      }
-    ];
-
-    this.dataService.getCategories().subscribe((res:any)=>{
+    this.dataService.getCategories().subscribe((res: any) => {
       let data = res;
       data.forEach(element => {
-        if(element.CatType ==1 ){
+        if (element.CatType == 1) {
           this.scategory.push(element);
-          console.log(this.scategory);
         }
       });
-    })
+    });
 
+    this.dataService
+      .listFiles()
+      .then(response => {
+        this.images = response.Contents.map(data => {
+          const row: any = {};
+          row.url = this.dataService.getUrl(data.Key);
+          row.key = data.Key.split('/').pop();
+          row.year = data.LastModified.getUTCFullYear();
+          return row;
+        });
+      })
+      .catch(error => {});
   }
 
   preview(files) {
@@ -59,6 +65,7 @@ export class EnterdataComponent implements OnInit {
   }
 
   createCategory(data) {
+    console.log(data);
     this.dataService.createCategories(data).subscribe((res: any) => {
       console.log(res);
     });
@@ -76,16 +83,31 @@ export class EnterdataComponent implements OnInit {
       });
     }
     if (data.index == 1) {
-      if(this.category.length == 0){
-      this.dataService.getCategories().subscribe((res: any) => {
-        this.category =res;
-      });
-    }
+      if (this.category.length == 0) {
+        this.dataService.getCategories().subscribe((res: any) => {
+          this.category = res;
+          console.log(this.category);
+        });
+      }
     }
   }
 
-  createBrand(data){
+  createBrand(data) {
     console.log(data);
-    this.brandForm.reset;
+    this.dataService.createBrands(data).subscribe((res: any) => {
+      console.log(data);
+    });
+  }
+
+  doSomething(data) {
+    this.selectedImage = 'https://appimageselinfinito.s3.us-east-2.amazonaws.com/' + data.value;
+    console.log(data);
+    console.log(this.selectedImage);
+  }
+
+  createStore(data) {
+    this.dataService.createStore(data).subscribe(res => {
+      console.log(res);
+    });
   }
 }
