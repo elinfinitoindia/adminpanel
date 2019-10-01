@@ -10,20 +10,16 @@ export class LayoutComponent implements OnInit {
   loading: boolean = false;
   constructor(private routes: Router) {}
 
-  ngOnInit() {
-    this.routes.events.subscribe((routerEvent:Event)=>{
-      this.checkEventRoute(routerEvent);
-    })
-  }
+  ngOnInit() {}
 
-  checkEventRoute(routerEvent: Event): void {
-    if (routerEvent instanceof NavigationStart) {
-      this.loading = true;
-      console.log('navigationstart');
-    }
-    if (routerEvent instanceof NavigationEnd || routerEvent instanceof NavigationCancel || routerEvent instanceof NavigationError) {
-      this.loading = false;
-      console.log('naviation ends');
-    }
-  }
+  // checkEventRoute(routerEvent: Event): void {
+  //   if (routerEvent instanceof NavigationStart) {
+  //     this.loading = true;
+  //     console.log('navigationstart');
+  //   }
+  //   if (routerEvent instanceof NavigationEnd || routerEvent instanceof NavigationCancel || routerEvent instanceof NavigationError) {
+  //     this.loading = false;
+  //     console.log('naviation ends');
+  //   }
+  // }
 }

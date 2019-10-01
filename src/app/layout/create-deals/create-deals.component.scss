@@ -1,19 +1,18 @@
-.example-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  .example-container > * {
-    width:90%;
-  }
+.mat-select-panel .mat-optgroup-label,
+.mat-select-panel .mat-option {
+  font-size: inherit;
+  line-height: 3em;
+  height: 6em !important;
+}
 
-  mat-form-field {
-  width:100%;
-  }
+mat-form-field .mat-form-field-infix {
+  padding: 0px !important;
+}
 
-  .mat-select-panel .mat-optgroup-label, .mat-select-panel .mat-option {
-    font-size: inherit;
-    line-height: 3em;
-    height: 6em !important;
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0px !important;
+}
+
+.mat-input-wrapper {
+  padding: 5px 3px !important;
 }

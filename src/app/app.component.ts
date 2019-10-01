@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
+import { Router, RouterOutlet, ActivationStart } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,23 +9,15 @@ import { Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStar
 })
 export class AppComponent implements OnInit {
   loading: boolean = false;
+  @ViewChild(RouterOutlet) outlet: RouterOutlet;
 
-  constructor(private translate: TranslateService, private routes: Router) {
+  constructor(private translate: TranslateService, private router: Router) {
     translate.setDefaultLang('en');
   }
 
   ngOnInit() {
-    this.routes.events.subscribe((routerEvent: Event) => {
-      this.checkEventRoute(routerEvent);
+    this.router.events.subscribe(e => {
+      if (e instanceof ActivationStart && e.snapshot.outlet === 'dashboard') this.outlet.deactivate();
     });
-  }
-
-  checkEventRoute(routerEvent: Event): void {
-    if (routerEvent instanceof NavigationStart) {
-      this.loading = true;
-    }
-    if (routerEvent instanceof NavigationEnd || routerEvent instanceof NavigationCancel || routerEvent instanceof NavigationError) {
-      this.loading = false;
-    }
   }
 }

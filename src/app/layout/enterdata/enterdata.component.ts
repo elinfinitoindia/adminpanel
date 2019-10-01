@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/shared/services/data.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import * as AWS from 'aws-sdk';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-enterdata',
@@ -24,15 +25,6 @@ export class EnterdataComponent implements OnInit {
   constructor(private dataService: DataService, private sharedService: SharedService) {}
 
   ngOnInit() {
-    this.dataService.getCategories().subscribe((res: any) => {
-      let data = res;
-      data.forEach(element => {
-        if (element.CatType == 1) {
-          this.scategory.push(element);
-        }
-      });
-    });
-
     this.dataService
       .listFiles()
       .then(response => {
@@ -65,7 +57,6 @@ export class EnterdataComponent implements OnInit {
   }
 
   createCategory(data) {
-    console.log(data);
     this.dataService.createCategories(data).subscribe((res: any) => {
       console.log(res);
     });
@@ -109,5 +100,19 @@ export class EnterdataComponent implements OnInit {
     this.dataService.createStore(data).subscribe(res => {
       console.log(res);
     });
+  }
+
+  addCategory() {
+    if (this.scategory.length <= 0) {
+      this.dataService.getCategories().subscribe((res: any) => {
+        this.scategory = res;
+        // data.forEach(element => {
+        //   if (element.CatType == 1) {
+        //     this.scategory.push(element);
+        //   }
+        // });
+      });
+      console.log(this.scategory);
+    }
   }
 }

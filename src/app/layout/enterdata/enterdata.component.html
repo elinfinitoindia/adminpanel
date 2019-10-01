@@ -1,4 +1,4 @@
-<mat-accordion>
+<!-- <mat-accordion>
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -18,11 +18,14 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-
-      {{ brandForm.value }}
+      <mat-form-field>
+        <input matInput placeholder="Enter URL" required [(ngModel)]="brand.Url" name="Name" />
+      </mat-form-field>
       <button mat-raised-button type="submit" [disabled]="brandForm.invalid">Submit</button>
     </form>
   </mat-expansion-panel>
+
+  
   <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -34,24 +37,31 @@
       <mat-form-field>
         <input matInput placeholder="Enter Name" required [(ngModel)]="category.Name" name="Name" />
       </mat-form-field>
-      <!-- <mat-form-field>
-        <input matInput placeholder="Enter Name" required [(ngModel)]="category.Image" name="Image" />
-      </mat-form-field> -->
+    
       <mat-form-field>
         <mat-select placeholder="select sub category" [(ngModel)]="category.CatType" name="CatType">
           <mat-option [value]="1">
-            Category
+            Store Category
           </mat-option>
           <mat-option [value]="2">
-            Sub Category
+            Store Sub Category
           </mat-option>
           <mat-option [value]="3">
+            Deals Category
+          </mat-option>
+          <mat-option [value]="4">
+            Deals SubCategory
+          </mat-option>
+          <mat-option [value]="5">
+            Product Category
+          </mat-option>
+          <mat-option [value]="6">
             Ads Category
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field *ngIf="category.CatType == 2">
-        <mat-select placeholder="select sub category" [(ngModel)]="category.CatPID" name="CatPID">
+        <mat-select placeholder="select sub category" [(ngModel)]="category.CatPID" name="CatPID" (click)="addCategory()">
           <mat-option *ngFor="let item of scategory" [value]="item.ID">
             {{ item.Name }}
           </mat-option>
@@ -68,6 +78,8 @@
       <button mat-raised-button type="submit" [disabled]="categoryForm.invalid">Submit</button>
     </form>
   </mat-expansion-panel>
+
+  
   <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -87,8 +99,49 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-
-      {{ brandForm.value }}
+      <mat-form-field>
+        <mat-select placeholder="select sub category" [(ngModel)]="store.CatType" name="CatType">
+          <mat-option [value]="1">
+            Store Category
+          </mat-option>
+          <mat-option [value]="2">
+            Store Sub Category
+          </mat-option>
+          <mat-option [value]="3">
+            Deals Category
+          </mat-option>
+          <mat-option [value]="4">
+            Deals SubCategory
+          </mat-option>
+          <mat-option [value]="5">
+            Product Category
+          </mat-option>
+          <mat-option [value]="6">
+            Ads Category
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="store.CatType == 1">
+        <mat-select placeholder="select sub category" [(ngModel)]="store.CatPID" name="CatPID" (click)="addCategory()">
+          <mat-option *ngFor="let item of scategory" [value]="item.ID">
+            {{ item.Name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="store.CatType == 2">
+        <mat-select placeholder="select sub category" [(ngModel)]="store.CatPID" name="CatPID" (click)="addCategory()">
+          <mat-option *ngFor="let item of scategory" [value]="item.ID">
+            {{ item.Name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field *ngIf="store.CatType == 2">
+        <mat-select placeholder="select sub category" [(ngModel)]="store.CategoryID" name="CatPID" (click)="addCategory()">
+          <mat-option *ngFor="let item of scategory" [value]="item.ID">
+            {{ item.Name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <button mat-raised-button type="submit" [disabled]="storeForm.invalid">Submit</button>
     </form>
   </mat-expansion-panel>
@@ -102,8 +155,8 @@
           <img matListAvatar src="http://elinfinitoindia.in/images/logo.png" alt="..." />
           <h3 matLine>{{ data.Name }}</h3>
           <p matLine>
-            <!-- <span> {{message.CatType}} </span>
-          <span class="demo-2"> -- {{message.content}} </span> -->
+        <span> {{message.CatType}} </span>
+          <span class="demo-2"> -- {{message.content}} </span> 
           </p>
           <button mat-list-item (click)="edit(data)">Edit</button>
         </mat-list-item>
@@ -129,12 +182,12 @@
           <img matListAvatar src="..." alt="..." />
           <h3 matLine>{{ data.Name }}</h3>
           <p matLine>
-            <!-- <span> {{message.CatType}} </span>
-          <span class="demo-2"> -- {{message.content}} </span> -->
-          </p>
+          <span> {{message.CatType}} </span>
+          <span class="demo-2"> -- {{message.content}} </span> 
+          </p
           <button mat-list-item (click)="save()">Save</button>
         </mat-list-item>
       </mat-list>
     </mat-tab>
   </mat-tab-group>
-</div>
+</div> -->

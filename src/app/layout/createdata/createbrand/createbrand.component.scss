@@ -1,3 +1,18 @@
+.datacontainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.datalist {
+  width: 100%;
+}
+
+.ct-btn {
+  margin-left: auto;
+}
+
 table {
   width: 100%;
 }
@@ -28,11 +43,4 @@ th.mat-sort-header-sorted {
 td,
 th {
   width: 25%;
-}
-
-tr.mat-header-row {
-  background: purple;
-}
-th .mat-sort-header-container {
-  color: white !important;
 }

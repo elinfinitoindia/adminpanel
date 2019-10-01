@@ -1,18 +1,4 @@
-.example-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  .example-container > * {
-    width:90%;
-  }
-
-  mat-form-field {
-  width:100%;
-  }
-
-  .subcategory {
-    color:red;
-    font-weight: 600;
-  }
+.subcategory {
+  color: red;
+  font-weight: 600;
+}

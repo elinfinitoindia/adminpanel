@@ -1,28 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { PeriodicElement } from '../../dashboard/dashboard.component';
 import { Router } from '@angular/router';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'prsateek', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Hdemnhdsfkjgh', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-adslist',
@@ -30,54 +11,82 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./adslist.component.scss']
 })
 export class AdslistComponent implements OnInit {
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  displayedColumns: string[] = ['select','position', 'name', 'weight', 'symbol', 'action'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);;
-  selection = new SelectionModel<PeriodicElement>(true, []);
+
+  displayedColumns: string[] = ['select', 'id', 'employee_name', 'employee_salary', 'employee_age', 'action'];
+  dataSource: MatTableDataSource<any>;
+
+  resultsLength = 0;
+  isLoadingResults = false;
+  selection = new SelectionModel<any>(true, []);
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numRows = this.dataSource.paginator.pageSize;
+    console.log(numSelected);
+    console.log(this.selection);
     return numSelected === numRows;
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.isAllSelected() ? this.selection.clear() :this.changeAllEvent(this.selection)
- 
+    this.isAllSelected() ? this.selection.clear() : this.selectAllRow();
   }
-  checkboxLabel(row?: PeriodicElement): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+
+  selectAllRow() {
+    // this.dataSource.data.forEach(row => {
+    //   this.selection.select(row);
+    //   console.log(row);
+    // });
+    let pagination = this.dataSource.paginator;
+    for (
+      let index = pagination.pageIndex + (pagination.pageSize - 1) * pagination.pageIndex;
+      index < this.dataSource.paginator.pageSize + pagination.pageIndex + (pagination.pageSize - 1) * pagination.pageIndex;
+      index++
+    ) {
+      console.log(index);
+      console.log(this.dataSource.data[index]);
+      this.selection.select(this.dataSource.data[index]);
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+    console.log(this.dataSource.paginator);
   }
 
+  /** The label for the checkbox on the passed row */
 
-  ngOnInit() {
+  isSelected(row) {
+    if (!this.selection.isSelected(row)) {
+      console.log(row);
+    } else {
+      console.log('unselected');
+    }
+
+    this.selection.toggle(row);
   }
 
-  changeEvent($event , row){
-    this.selection.toggle(row)
-    if($event.checked){
-       console.log(row);
-      }
-    
+  constructor(private router: Router, private http: HttpClient) {
+    this.http.get('http://dummy.restapiexample.com/api/v1/employees').subscribe((res: any) => {
+      this.dataSource = new MatTableDataSource(res);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
-  constructor( 
-    private router:Router
-  ) {}
-  
-  changeAllEvent( selection){
-    this.dataSource.data.forEach(row => this.selection.select(row));
-    console.log(this.selection.selected);
+  ngOnInit() {}
+
+  ngAfterViewInit() {}
+
+  applyFilter(filterValue) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
-  edit(element){
-    this.router.navigate(['/edit/editads/', element.position])
+  editOffer(data) {
+    console.log(data);
+    this.router.navigate(['/edit/', data.id]);
   }
-
 }

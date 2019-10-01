@@ -8,12 +8,6 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [Screen1Component],
-  imports: [
-    CommonModule,
-    Screen1RoutingModule,
-    FlexLayoutModule.withConfig({addFlexToParent: false}),
-    AppMaterialModule,
-    FormsModule
-  ]
+  imports: [CommonModule, FormsModule, Screen1RoutingModule, FlexLayoutModule.withConfig({ addFlexToParent: false }), AppMaterialModule]
 })
-export class Screen1Module { }
+export class Screen1Module {}

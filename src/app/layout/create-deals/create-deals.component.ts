@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Deals } from 'src/app/models/deals';
 import { DataService } from 'src/app/shared/services/data.service';
-import * as AWS from 'aws-sdk';
+import { map } from 'rxjs/operators';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 const params = {
   Bucket: 'appimageselinfinito'
@@ -22,22 +24,25 @@ export class CreateDealsComponent implements OnInit {
   images;
   selectedImage;
 
-  constructor(private dataService: DataService) {}
+  @ViewChild('dealForm') dealForm: NgForm;
+
+  constructor(private dataService: DataService, private router: Router) {}
 
   ngOnInit() {
-    this.deal = new Deals();
-    this.dataService.getCategories().subscribe((res: any) => {
-      this.categories = res;
-      this.categories.forEach(element => {
-        if (element.CatType == 2) {
-          console.log(element);
-          this.subcategory.push(element);
-        }
-      });
-
-      console.log(this.categories);
-    });
-
+    // this.deal = new Deals();
+    // this.dataService
+    //   .getCategories()
+    //   .pipe(map((res: any) => res.filter(resp => resp.CatType != '4')))
+    //   .subscribe((res: any) => {
+    //     this.categories = res;
+    //     this.categories.forEach(element => {
+    //       if (element.CatType == 2) {
+    //         console.log(element);
+    //         this.subcategory.push(element);
+    //       }
+    //     });
+    //     console.log(this.categories);
+    //   });
     // let images =  this.dataService.getImages().then(res=>{
     //   console.log(res);
     // });
@@ -53,23 +58,20 @@ export class CreateDealsComponent implements OnInit {
     //     this.images =  data.Contents
     //   }
     // });
-
     // console.log(this.images);
-
-    this.dataService
-      .listFiles()
-      .then(response => {
-        this.images = response.Contents.map(data => {
-          const row: any = {};
-          row.url = this.dataService.getUrl(data.Key);
-          row.key = data.Key.split('/').pop();
-          row.year = data.LastModified.getUTCFullYear();
-          return row;
-        });
-      })
-      .catch(error => {});
-
-    console.log(this.images);
+    // this.dataService
+    //   .listFiles()
+    //   .then(response => {
+    //     this.images = response.Contents.map(data => {
+    //       const row: any = {};
+    //       row.url = this.dataService.getUrl(data.Key);
+    //       row.key = data.Key.split('/').pop();
+    //       row.year = data.LastModified.getUTCFullYear();
+    //       return row;
+    //     });
+    //   })
+    //   .catch(error => {});
+    // console.log(this.images);
   }
 
   getBrands() {
@@ -89,10 +91,21 @@ export class CreateDealsComponent implements OnInit {
   }
 
   createDeal(data) {
-    console.log(data);
+    this.dataService.createDeals(data).subscribe((res: any) => {
+      console.log(res);
+    });
   }
 
   doSomething(data) {
-    this.selectedImage = 'https://appimageselinfinito.s3.us-east-2.amazonaws.com/' + data.value;
+    // this.selectedImage = 'https://appimageselinfinito.s3.us-east-2.amazonaws.com/' + data.value;
+  }
+
+  canDeactivate() {
+    if (this.dealForm.dirty == true) return window.confirm('Discard changes?');
+    return true;
+  }
+
+  goBack() {
+    this.router.navigate(['dashboard']);
   }
 }

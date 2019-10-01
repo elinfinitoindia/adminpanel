@@ -7,16 +7,12 @@
     <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/createdeals']">
       <mat-icon class="sidenav-icon">build</mat-icon> {{ 'Create Deal' | translate }}
     </a>
-
-    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/createads']">
-      <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Create Ads' | translate }}
-    </a>
-
     <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/products']">
       <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Create Products' | translate }}
     </a>
-    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/enterdata']">
-      <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Create Data' | translate }}
+
+    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/createads']">
+      <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Create Ads' | translate }}
     </a>
 
     <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/deals']">
@@ -26,10 +22,19 @@
     <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/deals/products']">
       <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Products' | translate }}
     </a>
+    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/createdata/brand']">
+      <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Brands' | translate }}
+    </a>
+    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/createdata/category']">
+      <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Category' | translate }}
+    </a>
+    <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/createdata/stores']">
+      <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Stores' | translate }}
+    </a>
+
     <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/deals/ads']">
       <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Ads' | translate }}
     </a>
-  
 
     <!-- <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/edit']">
       <mat-icon class="sidenav-icon">people</mat-icon> {{ 'Edit Deals' | translate }}

@@ -4,148 +4,91 @@ import { MatSort, MatPaginator, MatCheckboxChange } from '@angular/material';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-import { Observable, merge , of as observableOf } from 'rxjs';
-
-export interface GithubApi {
-  items: GithubIssue[];
-  total_count: number;
-}
-
-export interface GithubIssue {
-  created_at: string;
-  number: string;
-  state: string;
-  title: string;
-}
-
+import { catchError, map, startWith, switchMap } from 'rxjs/operators';
+import { Observable, merge, of as observableOf } from 'rxjs';
 
 @Component({
   selector: 'app-deals',
   templateUrl: './deals.component.html',
   styleUrls: ['./deals.component.scss']
 })
-export class DealsComponent implements AfterViewInit, OnInit{
-  // @ViewChild(MatSort) sort: MatSort;
-  // @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['select','created', 'state', 'number', 'title'];
-  exampleDatabase;
-  data: GithubIssue[] = [];
-  selection = new SelectionModel<GithubIssue>(true, []);
-
-  resultsLength = 0;
-  isLoadingResults = true;
-  isRateLimitReached = false;
-
+export class DealsComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  displayedColumns: string[] = ['select', 'id', 'employee_name', 'employee_salary', 'employee_age', 'action'];
+  dataSource: MatTableDataSource<any>;
+
+  resultsLength = 0;
+  isLoadingResults = false;
+  selection = new SelectionModel<any>(true, []);
+
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-    const numSelected = this.selection.selected.length ;
-    const numRows = this.data.length;
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.paginator.pageSize;
+    console.log(numSelected);
+    console.log(this.selection);
     return numSelected === numRows;
   }
 
-  // /** Selects all rows if they are not all selected; otherwise clear selection. */
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.isAllSelected() ? this.selection.clear() :this.changeAllEvent(this.selection)
- 
+    this.isAllSelected() ? this.selection.clear() : this.selectAllRow();
   }
-  checkboxLabel(row?: any): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+
+  selectAllRow() {
+    // this.dataSource.data.forEach(row => {
+    //   this.selection.select(row);
+    //   console.log(row);
+    // });
+    let pagination = this.dataSource.paginator;
+    for (
+      let index = pagination.pageIndex + (pagination.pageSize - 1) * pagination.pageIndex;
+      index < this.dataSource.paginator.pageSize + pagination.pageIndex + (pagination.pageSize - 1) * pagination.pageIndex;
+      index++
+    ) {
+      console.log(index);
+      console.log(this.dataSource.data[index]);
+      this.selection.select(this.dataSource.data[index]);
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
-   
+    console.log(this.dataSource.paginator);
   }
 
+  /** The label for the checkbox on the passed row */
 
-  
-
-  constructor(private route: ActivatedRoute, private router: Router ,
-    private http:HttpClient
-    ) {}
-
-
-    ngOnInit(){
-      console.log(this.selection.isSelected)
+  isSelected(row) {
+    if (!this.selection.isSelected(row)) {
+      console.log(row);
+    } else {
+      console.log('unselected');
     }
-    
-  //   isChecked(row: any): boolean {
-  //     const found = this.selection.selected.find(el => el.number === row._id);
-  //     if (found) {
-  //       return true;
-  //     }
-  //     return false;
-  //  }
 
-  ngAfterViewInit() {
-    let id = this.route.snapshot.params['id'];
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-    merge(this.sort.sortChange, this.paginator.page)
-    .pipe(
-      startWith({}),
-      switchMap(() => {
-        this.isLoadingResults = true;
-        return this.getRepoIssues(
-          this.sort.active, this.sort.direction, this.paginator.pageIndex);
-      }),
-      map(data => {
-        // Flip flag to show that loading has finished.
-        this.isLoadingResults = false;
-        this.isRateLimitReached = false;
-        this.resultsLength = data.total_count;
-
-        return data.items;
-      }),
-      catchError(() => {
-        this.isLoadingResults = false;
-        // Catch if the GitHub API has reached its rate limit. Return empty data.
-        this.isRateLimitReached = true;
-        return observableOf([]);
-      })
-    ).subscribe((data:any) => this.data = data);
-  
-    
+    this.selection.toggle(row);
   }
 
-  // ngAfterViewInit(): void {
-  //   // this.dataSource.sort = this.sort;
-  //   // this.dataSource.paginator = this.paginator
-  // }
-
-  edit(data) {
-    this.router.navigate(['/edit/', data.position]);
-  }
-  
-  toggle(row){
-    console.log(row)
+  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient) {
+    this.http.get('http://dummy.restapiexample.com/api/v1/employees').subscribe((res: any) => {
+      this.dataSource = new MatTableDataSource(res);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
+  ngOnInit() {}
 
-changeEvent($event , row){
-  this.selection.toggle(row)
-  if($event.checked){
-     console.log(row);
+  ngAfterViewInit() {}
+
+  applyFilter(filterValue) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
-  
-}
+  }
 
-changeAllEvent( selection){
-  this.data.forEach(row => this.selection.select(row));
-  console.log(this.selection.selected);
-}
-
-
-
-getRepoIssues(sort: string, order: string, page: number): Observable<GithubApi> {
-  const href = 'https://api.github.com/search/issues';
-  const requestUrl =
-      `${href}?q=repo:angular/components&sort=${sort}&order=${order}&page=${page + 1}`;
-
-  return this.http.get<GithubApi>(requestUrl);
-}
-
-
+  editOffer(data) {
+    console.log(data);
+    this.router.navigate(['/edit/', data.id]);
+  }
 }

@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CreateproductsComponent } from './createproducts.component';
+import { DeactivateGuardService } from 'src/app/shared/services/deactivate-guard.service';
 
 const routes: Routes = [
   {
-    path:'',
-    component:CreateproductsComponent
+    path: '',
+    component: CreateproductsComponent,
+    canDeactivate: [DeactivateGuardService]
   }
 ];
 
@@ -13,4 +15,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CreateproductsRoutingModule { }
+export class CreateproductsRoutingModule {}

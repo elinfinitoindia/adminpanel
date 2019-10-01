@@ -11,36 +11,38 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DeactivateGuardService } from './shared/services/deactivate-guard.service';
 import { AppMaterialModule } from './app-material/app-material.module';
+import { FormsModule } from '@angular/forms';
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
-    /* for development
+  /* for development
     return new TranslateHttpLoader(
         http,
         '/start-javascript/sb-admin-material/master/dist/assets/i18n/',
         '.json'
     );*/
-    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 };
 
 @NgModule({
-    declarations: [AppComponent],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        LayoutModule,
-        OverlayModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: createTranslateLoader,
-                deps: [HttpClient]
-            }
-        }),
-        AppMaterialModule
-    ],
-    providers: [DeactivateGuardService],
-    bootstrap: [AppComponent]
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    LayoutModule,
+    OverlayModule,
+    HttpClientModule,
+    FormsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: createTranslateLoader,
+        deps: [HttpClient]
+      }
+    }),
+    AppMaterialModule
+  ],
+  providers: [DeactivateGuardService],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

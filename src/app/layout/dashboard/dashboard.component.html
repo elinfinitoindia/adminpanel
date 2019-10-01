@@ -1,12 +1,12 @@
 <div class="mb-20" fxLayout="row" fxLayout.lt-md="column" fxFlex fxLayoutGap="20px">
   <div fxFlex>
-    <app-stat [bgClass]="'danger'" [icon]="'dashboard'" [count]="deals" [label]="'Deals'"></app-stat>
+    <app-stat [bgClass]="'danger'" [icon]="'dashboard'" [count]="deals" [label]="'Deals'" [routeData]="'deals'"></app-stat>
   </div>
   <div fxFlex>
-    <app-stat [bgClass]="'warn'" [icon]="'view_list'" [count]="products" [label]="'Products'"></app-stat>
+    <app-stat [bgClass]="'warn'" [icon]="'view_list'" [count]="products" [label]="'Products'" [routeData]="'deals/products'"></app-stat>
   </div>
   <div fxFlex>
-    <app-stat [bgClass]="'success'" [icon]="'shopping_cart'" [count]="ads" [label]="'Ads!'"></app-stat>
+    <app-stat [bgClass]="'success'" [icon]="'shopping_cart'" [count]="ads" [label]="'Ads!'" [routeData]="'deals/ads'"></app-stat>
   </div>
   <div fxFlex>
     <app-stat [bgClass]="'info'" [icon]="'contact_support'" [count]="pdeals" [label]="'Non Active Deals!'"></app-stat>

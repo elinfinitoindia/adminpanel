@@ -1,24 +1,175 @@
-<ng-container *ngIf="brand">
-<div class="example-container">
+<ng-container *ngIf="item == 'Brand'">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Create Brand</mat-card-title>
-      </mat-card-header>
+      <mat-card-title>Create {{ data.name }}</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
-    <form #brandForm="ngForm" (ngSubmit)="createBrand(brandForm.value)" novalidate>
-        <mat-form-field>
-            <input matInput placeholder="Enter Name" required [(ngModel)]="brand.Name" name="Name" />
-            <em *ngIf="createBrand.controls.Name.invalid">Please enter the brand name</em>
+      <form #brandForm="ngForm" (ngSubmit)="createBrand(brandForm.value)" novalidate>
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Enter Name" required [(ngModel)]="brand.Name" name="Name" />
         </mat-form-field>
-        <mat-form-field>
-              <input matInput placeholder="Enter Name" required [(ngModel)]="brand.Image" name="Image" />
+        <mat-form-field appearance="outline">
+          <mat-select placeholder="Select Image" (selectionChange)="doSomething($event)" [(ngModel)]="brand.Logo" name="Logo">
+            <mat-option *ngFor="let image of images" [value]="image.key" style="height:6em" (change)="preview(image)">
+              <img src="https://appimageselinfinito.s3.us-east-2.amazonaws.com/{{ image.key }}" alt="" style="width:100px;height:50px;" />
+              {{ image.key }}
+            </mat-option>
+          </mat-select>
         </mat-form-field>
-        <button mat-raised-button type="submit" [disabled]="brandForm.valid">Submit</button>
-    </form>
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Enter URL" required [(ngModel)]="brand.Url" name="Name" />
+        </mat-form-field>
+        <button mat-raised-button type="submit" [disabled]="brandForm.invalid">Submit</button>
+      </form>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>Ok</button>
-    </mat-card-actions>
   </mat-card>
-</div>
+</ng-container>
+
+<ng-container *ngIf="item == 'Category'">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Create {{ data?.name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form #categoryForm="ngForm" (ngSubmit)="createCategory(categoryForm.value)" novalidate>
+        <mat-form-field>
+          <input matInput placeholder="Enter Name" required (ngModel)="(category.Name)" name="Name" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select placeholder="select sub category" (ngModel)="(category.CatType)" name="CatType">
+            <mat-option [value]="1">
+              Store Category
+            </mat-option>
+            <mat-option [value]="2">
+              Store Sub Category
+            </mat-option>
+            <mat-option [value]="3">
+              Deals Category
+            </mat-option>
+            <mat-option [value]="4">
+              Deals SubCategory
+            </mat-option>
+            <mat-option [value]="5">
+              Product Category
+            </mat-option>
+            <mat-option [value]="6">
+              Ads Category
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- <mat-form-field *ngIf="category.CatType == 2">
+          <mat-select placeholder="select sub category" [(ngModel)]="category.CatPID" name="CatPID" (click)="addCategory()">
+            <mat-option *ngFor="let item of scategory" [value]="item.ID">
+              {{ item?.Name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <!-- <mat-form-field>
+          <mat-select placeholder="Select Image" (selectionChange)="doSomething($event)" [(ngModel)]="category.Logo" name="Logo">
+            <mat-option *ngFor="let image of images" [value]="image.key" style="height:6em" (change)="preview(image)">
+              <img src="https://appimageselinfinito.s3.us-east-2.amazonaws.com/{{ image.key }}" alt="" style="width:100px;height:50px;" />
+              {{ image?.key }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <button mat-raised-button type="submit" [disabled]="categoryForm.invalid">Submit</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<ng-container *ngIf="item == 'Store'">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Create {{ data?.name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form #storeForm="ngForm" (ngSubmit)="createStore(storeForm.value)" novalidate>
+        <mat-form-field>
+          <input matInput placeholder="Enter Name" required (ngModel)="(store.Name)" name="Name" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select placeholder="select sub category" (ngModel)="(store.CatType)" name="CatType">
+            <mat-option [value]="1">
+              Store Category
+            </mat-option>
+            <mat-option [value]="2">
+              Store Sub Category
+            </mat-option>
+            <mat-option [value]="3">
+              Deals Category
+            </mat-option>
+            <mat-option [value]="4">
+              Deals SubCategory
+            </mat-option>
+            <mat-option [value]="5">
+              Product Category
+            </mat-option>
+            <mat-option [value]="6">
+              Ads Category
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="select sub category" (ngModel)="(store.CatType)" name="CatType" [(value)]="selected">
+            <mat-option [value]="1">
+              Amazon
+            </mat-option>
+            <mat-option [value]="2">
+              Flipkart
+            </mat-option>
+            <mat-option [value]="3">
+              Jabong
+            </mat-option>
+            <mat-option [value]="4">
+              ShopClues
+            </mat-option>
+            <mat-option [value]="5">
+              Myntra
+            </mat-option>
+            <mat-option [value]="6">
+              Ads Category
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Enter Url" required (ngModel)="(store.Url)" name="Url" />
+        </mat-form-field>
+
+        <div>
+          <button mat-raised-button (click)="addUrl(selected, storeForm.value.Url)" type="button">AddUrl</button>
+        </div>
+
+        <mat-list>
+          <mat-list-item *ngFor="let item of storeUrl">
+            <p mat-line>Store Name - {{ item.Name }}</p>
+            <p mat-line>Store Url - {{ item.Url }}</p>
+            <button mat-line mat-raised-button color="primary" type="button" class="btnmargin" (click)="removeUrl(item.Name)">
+              Remove Url
+            </button>
+          </mat-list-item>
+        </mat-list>
+
+        <!-- <mat-form-field *ngIf="category.CatType == 2">
+          <mat-select placeholder="select sub category" [(ngModel)]="category.CatPID" name="CatPID" (click)="addCategory()">
+            <mat-option *ngFor="let item of scategory" [value]="item.ID">
+              {{ item?.Name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <!-- <mat-form-field>
+          <mat-select placeholder="Select Image" (selectionChange)="doSomething($event)" [(ngModel)]="category.Logo" name="Logo">
+            <mat-option *ngFor="let image of images" [value]="image.key" style="height:6em" (change)="preview(image)">
+              <img src="https://appimageselinfinito.s3.us-east-2.amazonaws.com/{{ image.key }}" alt="" style="width:100px;height:50px;" />
+              {{ image?.key }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <button mat-raised-button type="submit" [disabled]="storeForm.invalid">Submit</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </ng-container>

@@ -1,5 +1,13 @@
 <div class="datacontainer">
-  <h1 style="margin:auto">Ads</h1>
+  <h3 style="margin:auto">Brands</h3>
+  <button
+    mat-raised-button
+    style="
+  margin-right:auto;margin-bottom:25px"
+    (click)="createBrandDialog()"
+  >
+    Create New Brand
+  </button>
 
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
