@@ -6,6 +6,7 @@ import { Ads } from 'src/app/models/ads';
 import { Products } from 'src/app/models/products';
 import * as AWS from 'aws-sdk';
 import { environment } from '../../../environments/environment';
+import { map } from 'rxjs/operators';
 
 const headers = new HttpHeaders({
   'Access-Control-Allow-Origin': 'application/json'
@@ -27,8 +28,8 @@ export class DataService {
 
   /********* Get Services **************/
   // get deals
-  getDeals(): Observable<Deals> {
-    return;
+  getDeals(id): Observable<any> {
+    return this.http.get(environment.apiUrl + 'deals/' + id);
   }
 
   // get ads
@@ -57,6 +58,10 @@ export class DataService {
 
   getImages() {
     var d = [];
+  }
+
+  getSubCategory() {
+    return this.http.get(environment.apiUrl + 'category').pipe(map((res: any) => res.filter((resp: any) => resp.CatType == 1)));
   }
 
   /****************End Of get Services ************/

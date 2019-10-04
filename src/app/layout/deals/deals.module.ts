@@ -9,10 +9,7 @@ import { AdslistComponent } from './adslist/adslist.component';
 
 @NgModule({
   declarations: [DealsComponent, ProductlistComponent, AdslistComponent],
-  imports: [
-    CommonModule,
-    DealsRoutingModule,
-    AppMaterialModule
-  ]
+  imports: [CommonModule, DealsRoutingModule, AppMaterialModule],
+  exports: [DealsComponent]
 })
-export class DealsModule { }
+export class DealsModule {}

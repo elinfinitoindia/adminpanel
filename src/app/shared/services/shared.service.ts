@@ -9,9 +9,8 @@ export class SharedService {
   constructor(private router: RouterEvent, private _snackBar: MatSnackBar) {}
 
   createToast(data: string) {
-    let snackBarRef = this._snackBar.open('Message archived');
-    setTimeout(() => {
-      snackBarRef.dismiss();
-    }, 2000);
+    this._snackBar.open(data, '', {
+      duration: 2000
+    });
   }
 }

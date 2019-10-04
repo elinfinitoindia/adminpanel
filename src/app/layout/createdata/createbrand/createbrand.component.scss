@@ -44,3 +44,9 @@ td,
 th {
   width: 25%;
 }
+
+table {
+  // display: flex;
+  // flex-direction: column;
+  overflow-x: scroll;
+}

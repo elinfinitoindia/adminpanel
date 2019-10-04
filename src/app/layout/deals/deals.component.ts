@@ -89,6 +89,6 @@ export class DealsComponent implements AfterViewInit, OnInit {
 
   editOffer(data) {
     console.log(data);
-    this.router.navigate(['/edit/', data.id]);
+    this.router.navigate(['/edit/', '4a742718-6891-4816-88d4-b062a45196d4']);
   }
 }

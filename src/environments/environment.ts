@@ -7,7 +7,7 @@ export const environment = {
   IdentityPoolId: 'us-east-2:6c312384-10ee-4e13-bc24-57131b12ce73',
   configRegion: 'us-east-2',
   Bucket: 'appimageselinfinito',
-  apiUrl: 'http://localhost:52044/api/'
+  apiUrl: 'http://192.168.225.36:52044/api/'
 };
 
 /*

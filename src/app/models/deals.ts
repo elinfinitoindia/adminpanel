@@ -10,3 +10,8 @@ export class Deals {
   Store: string;
   SubCategory: string;
 }
+
+export class DealsResolver {
+  deals: Deals;
+  error?: any;
+}

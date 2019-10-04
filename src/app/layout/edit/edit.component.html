@@ -10,35 +10,35 @@
             <input matInput placeholder="Enter Name" required [(ngModel)]="deal.Name" name="Name" />
           </mat-form-field>
           <mat-form-field>
-            <textarea matInput placeholder="Enter Description" required [(ngModel)]="deal.Description" name="de"> </textarea>
+            <textarea matInput placeholder="Enter Description" required [(ngModel)]="deal.Description" name="Description"> </textarea>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Enter Short Description" required [(ngModel)]="deal.ShortDescription" name="dsfg" />
+            <input matInput placeholder="Enter Short Description" required [(ngModel)]="deal.ShortDescription" name="ShortDescription" />
           </mat-form-field>
           <mat-form-field>
-            <mat-select placeholder="Select Brand" [(ngModel)]="deal.Brand">
-              <mat-option *ngFor="let brand of brands" [value]="brand.ID" ngDefaultControl name="Brands">
+            <mat-select placeholder="Select Brand" [(ngModel)]="deal.Brand" name="Brand">
+              <mat-option *ngFor="let brand of brands" [value]="brand.ID" ngDefaultControl>
                 {{ brand.Name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
-            <mat-select placeholder="Select Category" [(ngModel)]="deal.Category">
-              <mat-option *ngFor="let Category of categories" [value]="Category.ID" ngDefaultControl name="Category">
+            <mat-select placeholder="Select Category" [(ngModel)]="deal.Category" name="Category">
+              <mat-option *ngFor="let Category of categories" [value]="Category.ID">
                 {{ Category.Name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
-            <mat-select placeholder="Select Image" [(ngModel)]="deal.Logo">
-              <mat-option *ngFor="let image of images" [value]="image.ID" ngDefaultControl name="Images">
+            <mat-select placeholder="Select Image" [(ngModel)]="deal.Logo" name="Images">
+              <mat-option *ngFor="let image of images" [value]="image.ID">
                 <img src="image.Url" alt="" />
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
-            <mat-select placeholder="Select Store">
-              <mat-option *ngFor="let store of stores" [value]="store.ID" [(ngModel)]="deal.Store" name="something" ngDefaultControl>
+            <mat-select placeholder="Select Store" name="something">
+              <mat-option *ngFor="let store of stores" [value]="store.ID" [(ngModel)]="deal.Store">
                 {{ Category.viewValue }}
               </mat-option>
             </mat-select>
@@ -47,7 +47,7 @@
             <input matInput placeholder="Enter Link" required [(ngModel)]="deal.Url" name="Link" />
           </mat-form-field>
           <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="deal.EndOn" />
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="deal.EndOn" name="EndOn" />
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>

@@ -1,8 +1,12 @@
-.datacontainer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
+// .datacontainer {
+//   // width: 90%;
+//   // display: flex;
+//   // justify-content: center;
+//   width: 50%;
+//   display: flex;
+//   justify-content: center;
+//   margin: auto;
+// }
 
 .datalist {
   width: 100%;
@@ -10,4 +14,8 @@
 
 .ct-btn {
   margin-left: auto;
+}
+
+.subcategory {
+  color: red;
 }

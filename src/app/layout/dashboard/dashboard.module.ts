@@ -7,20 +7,23 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { StatModule } from '../../shared/modules/stat/stat.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
+import { DealsModule } from '../deals/deals.module';
+import { DealsComponent } from '../deals/deals.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        DashboardRoutingModule,
-        MatGridListModule,
-        StatModule,
-        MatCardModule,
-        MatCardModule,
-        MatTableModule,
-        MatButtonModule,
-        MatIconModule,
-        FlexLayoutModule.withConfig({addFlexToParent: false})
-    ],
-    declarations: [DashboardComponent]
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    MatGridListModule,
+    StatModule,
+    MatCardModule,
+    MatCardModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    FlexLayoutModule.withConfig({ addFlexToParent: false }),
+    DealsModule
+  ],
+  declarations: [DashboardComponent]
 })
 export class DashboardModule {}

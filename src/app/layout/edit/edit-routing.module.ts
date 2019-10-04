@@ -4,22 +4,24 @@ import { EditComponent } from './edit.component';
 import { EditproductsComponent } from './editproducts/editproducts.component';
 import { EditadsComponent } from './editads/editads.component';
 import { DeactivateGuardService } from 'src/app/shared/services/deactivate-guard.service';
+import { EditdealService } from 'src/app/shared/services/editdeal.service';
 
 const routes: Routes = [
   {
-    path:':id',
+    path: ':id',
     component: EditComponent,
-    canDeactivate:[DeactivateGuardService]
+    canDeactivate: [DeactivateGuardService],
+    resolve: { resolvedData: EditdealService }
   },
   {
-    path:'editproducts/:id',
-    component:EditproductsComponent,
-    canDeactivate:[DeactivateGuardService]
+    path: 'editproducts/:id',
+    component: EditproductsComponent,
+    canDeactivate: [DeactivateGuardService]
   },
   {
-    path:'editads/:id',
-    component:EditadsComponent,
-    canDeactivate:[DeactivateGuardService]
+    path: 'editads/:id',
+    component: EditadsComponent,
+    canDeactivate: [DeactivateGuardService]
   }
 ];
 
@@ -27,4 +29,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class EditRoutingModule { }
+export class EditRoutingModule {}
