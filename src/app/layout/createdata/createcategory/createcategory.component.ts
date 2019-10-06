@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatList } from '@angular/material';
 import { Screen1Component } from '../../screen1/screen1.component';
 import { DataService } from 'src/app/shared/services/data.service';
 
@@ -10,11 +10,14 @@ import { DataService } from 'src/app/shared/services/data.service';
 })
 export class CreatecategoryComponent implements OnInit {
   category: any = [];
+  copyCategory: any = [];
+  @ViewChild('categorylist') categorylist: MatList;
   constructor(private dialog: MatDialog, private dataService: DataService) {}
 
   ngOnInit() {
     this.dataService.getCategories().subscribe((res: any) => {
       this.category = res;
+      this.copyCategory = this.category;
     });
   }
 
@@ -25,7 +28,8 @@ export class CreatecategoryComponent implements OnInit {
     console.log(dialogRef);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('The dialog was closed' + result);
+      this.copyCategory.unshift(result);
     });
   }
 }

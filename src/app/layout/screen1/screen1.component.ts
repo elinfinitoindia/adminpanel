@@ -1,5 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatFormFieldAppearance } from '@angular/material';
+import { DataService } from 'src/app/shared/services/data.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-screen1',
@@ -12,7 +14,13 @@ export class Screen1Component implements OnInit {
   appearance: MatFormFieldAppearance = 'outline';
   selected = '1';
   storeUrl: any = [];
-  constructor(public dialogRef: MatDialogRef<Screen1Component>, @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  @ViewChild('categoryForm') categoryForm: NgForm;
+  constructor(
+    public dialogRef: MatDialogRef<Screen1Component>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dataService: DataService
+  ) {}
 
   ngOnInit() {
     this.item = this.data.name;
@@ -36,5 +44,15 @@ export class Screen1Component implements OnInit {
     if (item >= 0) {
       this.storeUrl.splice(item, 1);
     }
+  }
+  createCategory(data) {
+    this.dataService.createCategories(data).subscribe((res: any) => {
+      console.log(res);
+      this.categoryForm.reset();
+      this.dialogRef.close(res);
+    });
+  }
+  changedSelection(data) {
+    console.log(data);
   }
 }

@@ -7,13 +7,17 @@
     </mat-card-header>
     <mat-card-content>
       <mat-selection-list #categorylist>
-        <mat-list-option *ngFor="let category of category" [ngClass]="{ subcategory: category.CatType == 2 }">
+        <mat-list-option
+          (selectionChange)="change(category)"
+          *ngFor="let category of copyCategory"
+          [ngClass]="{ subcategory: category.CatType == 2 }"
+        >
           {{ category.Name }}
           <mat-chip selected color="primary" *ngIf="category.CatType == 2">SubCategory</mat-chip>
         </mat-list-option>
       </mat-selection-list>
 
-      <p>Options selected: {{ categorylist.selectedOptions.selected.length }}</p>
+      <!-- <p>Options selected: {{ categorylist.selectedOptions.selected.length }}</p> -->
     </mat-card-content>
     <mat-card-actions>
       <button mat-button>Ok</button>
