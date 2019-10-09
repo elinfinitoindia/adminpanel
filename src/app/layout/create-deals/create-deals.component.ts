@@ -72,6 +72,22 @@ export class CreateDealsComponent implements OnInit {
     //   })
     //   .catch(error => {});
     // console.log(this.images);
+    this.dataService.listFiles().then(response => {
+      this.images = response.Contents.map(data => {
+        const row: any = {};
+        row.url = this.dataService.getUrl(data.Key);
+        row.key = data.Key.split('/').pop();
+        row.year = data.LastModified.getUTCFullYear();
+        return row;
+      });
+    });
+    this.dataService.getCategories().subscribe((res: any) => {
+      this.categories = res;
+    });
+
+    this.dataService.getStores().subscribe((res: any) => {
+      this.stores = res;
+    });
   }
 
   getBrands() {
@@ -82,13 +98,9 @@ export class CreateDealsComponent implements OnInit {
     }
   }
 
-  getStores() {
-    if (this.stores.length <= 0) {
-      this.dataService.getStores().subscribe((res: any) => {
-        this.stores = res;
-      });
-    }
-  }
+  getStores() {}
+
+  getCategory(data) {}
 
   createDeal(data) {
     this.dataService.createDeals(data).subscribe((res: any) => {
@@ -97,7 +109,7 @@ export class CreateDealsComponent implements OnInit {
   }
 
   doSomething(data) {
-    // this.selectedImage = 'https://appimageselinfinito.s3.us-east-2.amazonaws.com/' + data.value;
+    this.selectedImage = 'https://appimageselinfinito.s3.us-east-2.amazonaws.com/' + data.value;
   }
 
   canDeactivate() {

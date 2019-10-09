@@ -8,7 +8,10 @@
     <mat-card-content>
       <mat-selection-list #storelist>
         <mat-list-option *ngFor="let store of stores">
-          {{ store }}
+          <h3>{{ store.Name }}</h3>
+          <span>
+            <img src="{{ store.Logo }}" alt="" style="width:80px;" />
+          </span>
         </mat-list-option>
       </mat-selection-list>
 

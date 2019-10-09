@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatFormFieldAppearance } from '@angular/material';
 import { DataService } from 'src/app/shared/services/data.service';
 import { NgForm } from '@angular/forms';
+import { Category } from 'src/app/models/category';
 
 @Component({
   selector: 'app-screen1',
@@ -14,20 +15,37 @@ export class Screen1Component implements OnInit {
   appearance: MatFormFieldAppearance = 'outline';
   selected = '1';
   storeUrl: any = [];
-
+  category: Category;
+  isSubCategory: boolean = false;
+  subcats: Category[];
+  categoryList: any = [];
+  storeList: any = [];
   @ViewChild('categoryForm') categoryForm: NgForm;
   constructor(
     public dialogRef: MatDialogRef<Screen1Component>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dataService: DataService
-  ) {}
+  ) {
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed' + result);
+      this.categoryForm.reset();
+    });
+  }
 
   ngOnInit() {
     this.item = this.data.name;
     console.log(this.item);
     if (this.item == 'Brand') {
     } else if (this.item == 'Category') {
-    } else if (this.item == 'store') {
+    } else if (this.item == 'Store') {
+      this.dataService.getMajorCategories().subscribe((res: any) => {
+        this.categoryList = res;
+        console.log(this.categoryList);
+      });
+
+      this.dataService.getCategories().subscribe((res: any) => {
+        this.storeList = res;
+      });
     }
   }
 
@@ -53,6 +71,13 @@ export class Screen1Component implements OnInit {
     });
   }
   changedSelection(data) {
-    console.log(data);
+    console.log('changed event ' + data);
+    if (data == 2) {
+      this.isSubCategory = true;
+      this.dataService.getSubCategory().subscribe((res: any) => {
+        console.log(res);
+        this.subcats = res;
+      });
+    } else this.isSubCategory = false;
   }
 }

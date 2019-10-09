@@ -29,7 +29,7 @@ export class CreatecategoryComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed' + result);
-      this.copyCategory.unshift(result);
+      // this.copyCategory.unshift(result);
     });
   }
 }

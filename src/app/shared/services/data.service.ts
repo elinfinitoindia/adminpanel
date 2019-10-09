@@ -49,7 +49,11 @@ export class DataService {
 
   // get Categories
   getCategories() {
-    return this.http.get(environment.apiUrl + 'category');
+    return this.http.get(environment.apiUrl + 'category').pipe(map((res: any) => res.filter((resp: any) => resp.CatType == 2)));
+  }
+
+  getMajorCategories() {
+    return this.http.get(environment.apiUrl + 'category').pipe(map((res: any) => res.filter((resp: any) => resp.CatType == 1)));
   }
 
   getBrands() {

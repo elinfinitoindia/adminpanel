@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Screen1Component } from '../../screen1/screen1.component';
+import { DataService } from 'src/app/shared/services/data.service';
 
 @Component({
   selector: 'app-createstores',
@@ -9,10 +10,12 @@ import { Screen1Component } from '../../screen1/screen1.component';
 })
 export class CreatestoresComponent implements OnInit {
   stores;
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private dataService: DataService) {}
 
   ngOnInit() {
-    this.stores = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
+    this.dataService.getStores().subscribe((res: any) => {
+      this.stores = res;
+    });
   }
 
   createStoreDialog() {

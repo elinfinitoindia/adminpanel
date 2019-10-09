@@ -23,18 +23,18 @@
             </mat-select>
           </mat-form-field> -->
           <mat-form-field>
-            <mat-select placeholder="Select Category" (ngModel)="(deal.CategoryID)" (click)="getCategories()" name="CategoryID">
-              <mat-option *ngFor="let category of categories" [value]="category.ID">
+            <mat-select placeholder="Select Category" (ngModel)="(deal.CategoryID)" name="CategoryID">
+              <mat-option *ngFor="let category of categories" [value]="category.ID" (click)="getCategories(category)">
                 {{ category.Name }}
               </mat-option> </mat-select
             >category
           </mat-form-field>
           <mat-form-field>
-            <mat-select placeholder="Select SubCategory" (ngModel)="(deal.SubCategoryID)" name="SubCategoryID">
-              <mat-option *ngFor="let subcat of subcategory" [value]="subcat.ID">
-                {{ subcat.Name }}
-              </mat-option>
-            </mat-select>
+            <mat-select placeholder="Select Store" (ngModel)="(deal.StoreID)" name="StoreID">
+              <mat-option *ngFor="let store of stores" [value]="store.ID">
+                {{ store.Name }}
+              </mat-option> </mat-select
+            >category
           </mat-form-field>
           <!-- <mat-form-field>
             <mat-select placeholder="Select Store" (click)="getStores()" [(ngModel)]="deal.Store" name="Store">
@@ -53,6 +53,9 @@
           </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="Enter Link" required (ngModel)="(deal.Url)" name="Url" />
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Enter Coupon Code" required (ngModel)="(deal.Coupon)" name="Coupon" />
           </mat-form-field>
           <mat-form-field>
             <input matInput [matDatepicker]="picker" placeholder="Choose a date" (ngModel)="(deal.EndOn)" name="EndOn" />

@@ -64,7 +64,8 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field>
+
+        <mat-form-field *ngIf="isSubCategory">
           <mat-select
             placeholder="select sub category"
             (ngModel)="(category.CatPID)"
@@ -104,46 +105,17 @@
           </mat-form-field>
 
           <mat-form-field>
-            <mat-select placeholder="select sub category" (ngModel)="(store.CatType)" name="CatType">
-              <mat-option [value]="1">
-                Store Category
-              </mat-option>
-              <mat-option [value]="2">
-                Store Sub Category
-              </mat-option>
-              <mat-option [value]="3">
-                Deals Category
-              </mat-option>
-              <mat-option [value]="4">
-                Deals SubCategory
-              </mat-option>
-              <mat-option [value]="5">
-                Product Category
-              </mat-option>
-              <mat-option [value]="6">
-                Ads Category
+            <mat-select placeholder="select Parent Store" (ngModel)="(store.StorePID)" name="CatType">
+              <mat-option [value]="item.ID" *ngFor="let item of categoryList">
+                {{ item.Name }}
+                {{ item.ID }}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
-            <mat-select placeholder="select sub category" (ngModel)="(store.CatType)" name="CatType" [(value)]="selected">
-              <mat-option [value]="1">
-                Amazon
-              </mat-option>
-              <mat-option [value]="2">
-                Flipkart
-              </mat-option>
-              <mat-option [value]="3">
-                Jabong
-              </mat-option>
-              <mat-option [value]="4">
-                ShopClues
-              </mat-option>
-              <mat-option [value]="5">
-                Myntra
-              </mat-option>
-              <mat-option [value]="6">
-                Ads Category
+            <mat-select placeholder="Select Store Category" (ngModel)="(store.CategoryID)" name="CatType" [(value)]="selected">
+              <mat-option [value]="item.ID" *ngFor="let item of storeList">
+                {{ item.Name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
