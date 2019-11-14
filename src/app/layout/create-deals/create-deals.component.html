@@ -55,7 +55,7 @@
             <input matInput placeholder="Enter Link" required (ngModel)="(deal.Url)" name="Url" />
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Enter Coupon Code" required (ngModel)="(deal.Coupon)" name="Coupon" />
+            <input matInput placeholder="Enter Coupon Code"  (ngModel)="(deal.Coupon)" name="Coupon" />
           </mat-form-field>
           <mat-form-field>
             <input matInput [matDatepicker]="picker" placeholder="Choose a date" (ngModel)="(deal.EndOn)" name="EndOn" />

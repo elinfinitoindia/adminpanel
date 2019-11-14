@@ -10,10 +10,10 @@
         <mat-list-option
           (selectionChange)="change(category)"
           *ngFor="let category of copyCategory"
-          [ngClass]="{ subcategory: category.CatType == 2 }"
+          [ngClass]="{ subcategory: category.CatType == 15 }"
         >
           {{ category.Name }}
-          <mat-chip selected color="primary" *ngIf="category.CatType == 2">SubCategory</mat-chip>
+          <mat-chip selected color="primary" *ngIf="category.CatType == 15">SubCategory</mat-chip>
         </mat-list-option>
       </mat-selection-list>
 

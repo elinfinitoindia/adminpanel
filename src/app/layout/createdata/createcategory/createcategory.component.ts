@@ -15,7 +15,7 @@ export class CreatecategoryComponent implements OnInit {
   constructor(private dialog: MatDialog, private dataService: DataService) {}
 
   ngOnInit() {
-    this.dataService.getCategories().subscribe((res: any) => {
+    this.dataService.getAllCategories().subscribe((res: any) => {
       this.category = res;
       this.copyCategory = this.category;
     });

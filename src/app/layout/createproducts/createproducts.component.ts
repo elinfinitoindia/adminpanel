@@ -22,7 +22,7 @@ export class CreateproductsComponent implements OnInit {
   }
 
   getCategories() {
-    this.dataService.getCategories().subscribe((res: any) => {
+    this.dataService.getAllCategories().subscribe((res: any) => {
       this.categories = res;
     });
   }

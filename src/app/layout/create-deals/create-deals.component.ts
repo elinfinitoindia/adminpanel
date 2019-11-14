@@ -81,7 +81,7 @@ export class CreateDealsComponent implements OnInit {
         return row;
       });
     });
-    this.dataService.getCategories().subscribe((res: any) => {
+    this.dataService.getDealCategories().subscribe((res: any) => {
       this.categories = res;
     });
 
@@ -103,6 +103,7 @@ export class CreateDealsComponent implements OnInit {
   getCategory(data) {}
 
   createDeal(data) {
+    data.Logo = 'https://appimageselinfinito.s3.us-east-2.amazonaws.com/' + data.Logo;
     this.dataService.createDeals(data).subscribe((res: any) => {
       console.log(res);
     });

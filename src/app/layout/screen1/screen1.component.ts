@@ -20,6 +20,15 @@ export class Screen1Component implements OnInit {
   subcats: Category[];
   categoryList: any = [];
   storeList: any = [];
+  images: any = [];
+  isSubStore: boolean = false;
+  parentStore;
+  storeLogoName;
+  CatType;
+  LogoName;
+  Url;
+  isStore:boolean = true;
+
   @ViewChild('categoryForm') categoryForm: NgForm;
   constructor(
     public dialogRef: MatDialogRef<Screen1Component>,
@@ -28,7 +37,7 @@ export class Screen1Component implements OnInit {
   ) {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed' + result);
-      this.categoryForm.reset();
+      // this.categoryForm.reset();
     });
   }
 
@@ -36,24 +45,41 @@ export class Screen1Component implements OnInit {
     this.item = this.data.name;
     console.log(this.item);
     if (this.item == 'Brand') {
+        this.dataService.listFiles().then(response => {
+          this.images = response.Contents.map(data => {
+            const row: any = {};
+            row.url = this.dataService.getUrl(data.Key);
+            row.key = data.Key.split('/').pop();
+            row.year = data.LastModified.getUTCFullYear();
+            return row;
+          });
+        });
     } else if (this.item == 'Category') {
     } else if (this.item == 'Store') {
       this.dataService.getMajorCategories().subscribe((res: any) => {
         this.categoryList = res;
         console.log(this.categoryList);
       });
-
-      this.dataService.getCategories().subscribe((res: any) => {
-        this.storeList = res;
+      this.dataService.listFiles().then(response => {
+        this.images = response.Contents.map(data => {
+          const row: any = {};
+          row.url = this.dataService.getUrl(data.Key);
+          row.key = data.Key.split('/').pop();
+          row.year = data.LastModified.getUTCFullYear();
+          return row;
+        });
       });
+      console.log(this.images);
+      
     }
   }
 
-  addUrl(data, Url) {
+  addUrl(Name, Url) {
     var element = {
-      Name: data,
+      Name: Name,
       Url: Url
     };
+    console.log(element);
     this.storeUrl.push(element);
   }
 
@@ -72,12 +98,50 @@ export class Screen1Component implements OnInit {
   }
   changedSelection(data) {
     console.log('changed event ' + data);
-    if (data == 2) {
-      this.isSubCategory = true;
-      this.dataService.getSubCategory().subscribe((res: any) => {
+    if (data == 3) {
+      this.isSubStore = true;
+      this.dataService.getFeatureSubCategory().subscribe((res: any) => {
         console.log(res);
-        this.subcats = res;
+        this.parentStore = res;
       });
-    } else this.isSubCategory = false;
+    } else if(data == 1){
+       
+      this.isStore = false;
+    }
+    else{
+          this.isSubStore = false;
+        }
+        if(data == 2 ){
+this.dataService.getMajorCategories().subscribe((res:any)=>{
+  this.storeList = res;
+})
+this.dataService.getStoreLogoName().subscribe((res: any) => {
+  this.storeLogoName = res;
+});
+        }
+    
   }
+
+  changeParentCategory(data){
+ this.dataService.getCategories(data).subscribe((res: any) => {
+   this.storeList = res;
+ });
+ this.dataService.getStoreLogoName().subscribe((res:any)=>{
+   this.storeLogoName = res;
+ })
+  }
+
+  createStore(data) {
+    data.Url = this.storeUrl;
+    data.Logo = 'https://appimageselinfinito.s3.us-east-2.amazonaws.com/' + data.Logo;
+    this.dataService.createStore(data).subscribe((res:any)=>{
+      console.log(res);
+      this.dialogRef.close(res);
+
+    })
+    console.log(data);
+    
+  }
+
+  doSomething() {}
 }

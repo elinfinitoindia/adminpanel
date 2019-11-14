@@ -37,6 +37,12 @@ export class DataService {
     return;
   }
 
+  getAdsCategory(){
+                    return this.http
+                      .get(environment.apiUrl + 'category')
+                      .pipe(map((res: any) => res.filter((resp: any) => resp.CatType == 99)));
+                  }
+
   // get Products
   getProducts(): Observable<Products> {
     return;
@@ -47,10 +53,23 @@ export class DataService {
     return this.http.get(environment.apiUrl + 'stores');
   }
 
-  // get Categories
-  getCategories() {
-    return this.http.get(environment.apiUrl + 'category').pipe(map((res: any) => res.filter((resp: any) => resp.CatType == 2)));
+  getAllCategories() {
+    return this.http.get(environment.apiUrl + 'category');
   }
+
+  getDealCategories(){
+                       return this.http
+                         .get(environment.apiUrl + 'category')
+                         .pipe(map((res: any) => res.filter((resp: any) => resp.CatType == 6)));
+                     }
+  // get Categories
+  getCategories(data) {
+    return this.http.get(environment.apiUrl + 'category/getSubCategory/' + data);
+  }
+
+  getSubCategory(){
+                    return this.http.get(environment.apiUrl + 'category');
+                  }
 
   getMajorCategories() {
     return this.http.get(environment.apiUrl + 'category').pipe(map((res: any) => res.filter((resp: any) => resp.CatType == 1)));
@@ -64,8 +83,8 @@ export class DataService {
     var d = [];
   }
 
-  getSubCategory() {
-    return this.http.get(environment.apiUrl + 'category').pipe(map((res: any) => res.filter((resp: any) => resp.CatType == 1)));
+  getFeatureSubCategory() {
+    return this.http.get(environment.apiUrl + 'category').pipe(map((res: any) => res.filter((resp: any) => resp.CatType == 11)));
   }
 
   /****************End Of get Services ************/
@@ -111,5 +130,19 @@ export class DataService {
       Key: key,
       Expires: this.signedUrlExpireSeconds
     });
+  }
+
+  createShortDynamicLink() {
+    this.http
+      .post('https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyDVbIsviInWkIsGkS1o2RL6WTDLkT0o3bc', {
+        longDynamicLink: 'https://dealslocker.page.link/?link=http://palianews.com/archives/15709&apn=io.dealslocker.app&d=1'
+      })
+      .subscribe((res: any) => {
+        console.log(res);
+      });
+  }
+
+  getStoreLogoName(){
+    return this.http.get(environment.apiUrl + 'stores').pipe(map((res: any) => res.filter((resp: any) => resp.CategoryID == null)));
   }
 }

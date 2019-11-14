@@ -12,19 +12,31 @@ import { Location } from '@angular/common';
 export class CreateadsComponent implements OnInit {
   ads;
   categories;
+  images;
+  selectedImage;
   @ViewChild('adsForm') adsForm: NgForm;
   constructor(private dataService: DataService, private location: Location) {}
 
   ngOnInit() {
     this.ads = new Ads();
+    this.dataService.listFiles().then(response => {
+      this.images = response.Contents.map(data => {
+        const row: any = {};
+        row.url = this.dataService.getUrl(data.Key);
+        row.key = data.Key.split('/').pop();
+        row.year = data.LastModified.getUTCFullYear();
+        return row;
+      });
+    });
   }
 
   createAds(data) {
+    data.Image = 'https://appimageselinfinito.s3.us-east-2.amazonaws.com/' + data.Image;
     console.log(data);
   }
 
   getCategories() {
-    this.dataService.getCategories().subscribe((res: any) => {
+    this.dataService.getAdsCategory().subscribe((res: any) => {
       this.categories = res;
     });
   }
@@ -37,6 +49,14 @@ export class CreateadsComponent implements OnInit {
     console.log('you are going away, goodby');
     return true;
   }
+  
+  doSomething(data) {
+    this.selectedImage = 'https://appimageselinfinito.s3.us-east-2.amazonaws.com/' + data.value;
+  }
 
   goBack(): void {}
+
+  clickBtn() {
+    this.dataService.createShortDynamicLink();
+  }
 }

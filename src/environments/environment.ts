@@ -3,12 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  IdentityPoolId: 'us-east-2:6c312384-10ee-4e13-bc24-57131b12ce73',
-  configRegion: 'us-east-2',
-  Bucket: 'appimageselinfinito',
-  apiUrl: 'http://192.168.225.36:52044/api/'
-};
+         production: false,
+         IdentityPoolId: 'us-east-2:6c312384-10ee-4e13-bc24-57131b12ce73',
+         configRegion: 'us-east-2',
+         Bucket: 'appimageselinfinito',
+         apiUrl: 'http://192.168.225.44:52044/api/'
+       };
 
 /*
  * For easier debugging in development mode, you can import the following file

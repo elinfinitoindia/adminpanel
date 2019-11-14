@@ -75,7 +75,7 @@ export class EnterdataComponent implements OnInit {
     }
     if (data.index == 1) {
       if (this.category.length == 0) {
-        this.dataService.getCategories().subscribe((res: any) => {
+        this.dataService.getAllCategories().subscribe((res: any) => {
           this.category = res;
           console.log(this.category);
         });
@@ -104,7 +104,7 @@ export class EnterdataComponent implements OnInit {
 
   addCategory() {
     if (this.scategory.length <= 0) {
-      this.dataService.getCategories().subscribe((res: any) => {
+      this.dataService.getAllCategories().subscribe((res: any) => {
         this.scategory = res;
         // data.forEach(element => {
         //   if (element.CatType == 1) {

@@ -13,4 +13,38 @@ export class SharedService {
       duration: 2000
     });
   }
+
+  setUserLoginStatus() {
+    localStorage.setItem('LoggedIn', 'true');
+  }
+
+  setToken(token) {
+    localStorage.setItem('Token', JSON.stringify(token));
+  }
+
+  getToken(){
+   return localStorage.getItem("Token");
+  }
+
+  setUser(user) {
+    localStorage.setItem('User', JSON.stringify(user));
+  }
+
+  getUserLoginStatus() {
+ return localStorage.getItem('LoggedIn');
+  }
+
+ async getUser(){
+  console.log("getUser")
+  return  await localStorage.getItem("User") || "";
+  }
+
+  removeLoginDetail() {
+    localStorage.setItem('User', '');
+    localStorage.setItem('LoggedIn', '');
+  }
+
+  handleError(data){
+    this.createToast(data.statusText);
+  }
 }
