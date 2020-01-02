@@ -1,7 +1,7 @@
 <div class="example-container">
   <mat-card class="offercard">
     <mat-card-header>
-      <mat-card-title>Create Ads</mat-card-title>
+      <mat-card-title>Create ADS</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="example-container">
@@ -21,16 +21,16 @@
           </mat-form-field>
           -->
           <mat-form-field>
-            <mat-select placeholder="Select Image" [(ngModel)]="ads.Image" name="Image" (selectionChange)="doSomething($event)" >
+            <mat-select placeholder="Select Image" [(ngModel)]="ads.Logo" name="Logo" (selectionChange)="doSomething($event)" >
               <mat-option *ngFor="let image of images" [value]="image.key" ngDefaultControl  style="height:6em">
-                <img src="https://appimageselinfinito.s3.us-east-2.amazonaws.com/{{ image.key }}" style="width:100px;height:50px;"  alt="" />
+                <img src="https://dealslocker.s3.ap-south-1.amazonaws.com/{{ image.key }}" style="width:100px;height:50px;"  alt="" />
                 {{image.key}}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="Enter Link" required [(ngModel)]="ads.Url" name="Url" />
-          </mat-form-field>
+          </mat-form-field>`
           <mat-form-field>
             <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="ads.EndOn" name="EndOn" required />
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

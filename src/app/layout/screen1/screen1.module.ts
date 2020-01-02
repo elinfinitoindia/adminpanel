@@ -7,7 +7,7 @@ import { AppMaterialModule } from 'src/app/app-material/app-material.module';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [Screen1Component],
+  declarations: [],
   imports: [CommonModule, FormsModule, Screen1RoutingModule, FlexLayoutModule.withConfig({ addFlexToParent: false }), AppMaterialModule]
 })
 export class Screen1Module {}

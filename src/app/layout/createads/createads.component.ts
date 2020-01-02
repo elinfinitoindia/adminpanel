@@ -31,8 +31,11 @@ export class CreateadsComponent implements OnInit {
   }
 
   createAds(data) {
-    data.Image = 'https://appimageselinfinito.s3.us-east-2.amazonaws.com/' + data.Image;
-    console.log(data);
+    data.Logo = 'https://appimageselinfinito.s3.us-east-2.amazonaws.com/' + data.Logo;
+    this.dataService.createAds(data).subscribe((res:any)=>{
+      console.log(res);
+      
+    })
   }
 
   getCategories() {
@@ -51,7 +54,8 @@ export class CreateadsComponent implements OnInit {
   }
   
   doSomething(data) {
-    this.selectedImage = 'https://appimageselinfinito.s3.us-east-2.amazonaws.com/' + data.value;
+    this.selectedImage =
+      "https://dealslocker.s3.ap-south-1.amazonaws.com/" + data.value;
   }
 
   goBack(): void {}

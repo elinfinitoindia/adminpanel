@@ -1,41 +1,31 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
+import { MatSort, MatTableDataSource, MatPaginator, MatSnackBar } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
-import { PeriodicElement } from '../../dashboard/dashboard.component';
 import { Router } from '@angular/router';
 import { Products } from '../../../models/products';
 import { HttpClient } from '@angular/common/http';
+import { DataService } from 'src/app/shared/services/data.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' }
-];
 
 @Component({
-  selector: 'app-productlist',
-  templateUrl: './productlist.component.html',
-  styleUrls: ['./productlist.component.scss']
+  selector: "app-productlist",
+  templateUrl: "./productlist.component.html",
+  styleUrls: ["./productlist.component.scss"]
 })
 export class ProductlistComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  displayedColumns: string[] = ['select', 'id', 'employee_name', 'employee_salary', 'employee_age', 'action'];
+  displayedColumns: string[] = [
+    "select",
+    "id",
+    "Name",
+    "CategoryID",
+    "Logo",
+    "action"
+  ];
   dataSource: MatTableDataSource<any>;
 
   resultsLength = 0;
@@ -63,8 +53,12 @@ export class ProductlistComponent implements OnInit {
     // });
     let pagination = this.dataSource.paginator;
     for (
-      let index = pagination.pageIndex + (pagination.pageSize - 1) * pagination.pageIndex;
-      index < this.dataSource.paginator.pageSize + pagination.pageIndex + (pagination.pageSize - 1) * pagination.pageIndex;
+      let index =
+        pagination.pageIndex + (pagination.pageSize - 1) * pagination.pageIndex;
+      index <
+      this.dataSource.paginator.pageSize +
+        pagination.pageIndex +
+        (pagination.pageSize - 1) * pagination.pageIndex;
       index++
     ) {
       console.log(index);
@@ -80,23 +74,32 @@ export class ProductlistComponent implements OnInit {
     if (!this.selection.isSelected(row)) {
       console.log(row);
     } else {
-      console.log('unselected');
+      console.log("unselected");
     }
 
     this.selection.toggle(row);
   }
 
-  constructor(private router: Router, private http: HttpClient) {
-    this.http.get('http://dummy.restapiexample.com/api/v1/employees').subscribe((res: any) => {
-      this.dataSource = new MatTableDataSource(res);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    });
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private dataService: DataService,
+    private _snackBar: MatSnackBar
+  ) {
+    this.getData();
   }
 
   ngOnInit() {}
 
   ngAfterViewInit() {}
+
+  getData() {
+    this.dataService.getProducts().subscribe((res: any) => {
+      this.dataSource = new MatTableDataSource(res);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+  }
 
   applyFilter(filterValue) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -108,6 +111,17 @@ export class ProductlistComponent implements OnInit {
 
   editOffer(data) {
     console.log(data);
-    this.router.navigate(['/edit/', data.id]);
+    this.router.navigate(["edit/editproducts/", data.ID]);
+  }
+
+  deleteProducts(data) {
+    if (window.confirm("Discard changes?")) {
+      this.dataService.deleteProducts(data.ID).subscribe((res: any) => {
+        this._snackBar.open("Product Deleted " + res.Name, '',{
+          duration: 2000
+        });
+        this.getData();
+      });
+    }
   }
 }

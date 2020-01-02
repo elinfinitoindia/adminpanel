@@ -5,43 +5,115 @@
     </mat-card-header>
     <mat-card-content>
       <div class="example-container">
-        <form #productForm="ngForm" (ngSubmit)="createProduct(productForm.value)" novalidate>
+        <form
+          #productForm="ngForm"
+          (ngSubmit)="createProduct(productForm.value)"
+          novalidate
+        >
           <mat-form-field>
-            <input matInput placeholder="Enter Name" required [(ngModel)]="product.Name" name="Name" Name="#ngModel" />
+            <input
+              matInput
+              placeholder="Enter Name"
+              required
+              (ngModel)="(product.Name)"
+              name="Name"
+              Name="#ngModel"
+            />
           </mat-form-field>
           <mat-form-field>
-            <textarea matInput placeholder="Enter Description" required [(ngModel)]="product.Description" name="Description"> </textarea>
+            <textarea
+              matInput
+              placeholder="Enter Description"
+              required
+              (ngModel)="(product.Descriptions)"
+              name="Descriptions"
+            >
+            </textarea>
           </mat-form-field>
           <mat-form-field>
-            <mat-select placeholder="Select Category" [(ngModel)]="product.Category">
-              <mat-option *ngFor="let category of categories" [value]="Category.ID" ngDefaultControl name="Category">
+            <mat-select
+              placeholder="Select Category"
+              (ngModel)="(product.CategoryID)"
+              name="CategoryID"
+            >
+              <mat-option
+                *ngFor="let category of categories"
+                [value]="category.ID"
+              >
                 {{ category.Name }}
+                {{ category.ID }}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
-            <mat-select placeholder="Select Category" [(ngModel)]="product.Category">
-              <mat-option *ngFor="let brand of brands" [value]="Brannd.ID" ngDefaultControl name="Category">
-                {{ brand.Name }}
+            <mat-select
+              placeholder="Select Sub Category"
+              (ngModel)="product.SubCategoryID"
+              name="SubCategoryID"
+            >
+              <mat-option
+                *ngFor="let subcats of subcategory"
+                [value]="subcats.ID"
+              >
+                {{ subcats.Name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
-            <mat-select placeholder="Select Image" [(ngModel)]="product.Image">
-              <mat-option *ngFor="let image of images" [value]="image.ID" ngDefaultControl name="Images">
-                <img src="image.Url" alt="" />
+            <mat-select
+              placeholder="Select Image"
+              (selectionChange)="doSomething($event)"
+              (ngModel)="(product.Logo)"
+              name="Image"
+            >
+              <mat-option
+                *ngFor="let image of images"
+                [value]="image.key"
+                style="height:6em"
+                (change)="preview(image)"
+              >
+                <img
+                  src="https://dealslocker.s3.ap-south-1.amazonaws.com/{{
+                    image.key
+                  }}"
+                  alt=""
+                  style="width:100px;height:50px;"
+                />
+                {{ image.key }}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Enter Link" required [(ngModel)]="product.Url" name="Url" />
+            <input
+              matInput
+              placeholder="Enter Link"
+              required
+              (ngModel)="(product.Url)"
+              name="Url"
+            />
           </mat-form-field>
           <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="product.EndOn" name="EndOn" required />
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              placeholder="Choose a date"
+              (ngModel)="(product.EndOn)"
+              name="EndOn"
+              required
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
-          <button type="submit" class="btn btn-success" [disabled]="productForm.invalid">Submit</button>
+          <button
+            type="submit"
+            class="btn btn-success"
+            [disabled]="productForm.invalid"
+          >
+            Submit
+          </button>
         </form>
       </div>
     </mat-card-content>

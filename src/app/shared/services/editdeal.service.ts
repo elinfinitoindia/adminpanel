@@ -15,7 +15,7 @@ export class EditdealService implements Resolve<any> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
     const id = route.paramMap.get('id');
-    return this.http.get('http://localhost:52044/api/deals/' + id).pipe(
+    return this.http.get('http://localhost:5000/api/deals/' + id).pipe(
       map(
         deals => ({
           deals: deals

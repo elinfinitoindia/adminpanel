@@ -3,20 +3,45 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatSort, MatPaginator, MatCheckboxChange } from '@angular/material';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { catchError, map, startWith, switchMap } from 'rxjs/operators';
-import { Observable, merge, of as observableOf } from 'rxjs';
+import { DataService } from 'src/app/shared/services/data.service';
+import { trigger, animate, keyframes, style, transition , query , stagger} from '@angular/animations';
 
 @Component({
-  selector: 'app-deals',
-  templateUrl: './deals.component.html',
-  styleUrls: ['./deals.component.scss']
+  selector: "app-deals",
+  templateUrl: "./deals.component.html",
+  styleUrls: ["./deals.component.scss"],
+  animations:[
+    trigger('myInsertRemoveTrigger', [
+  transition(':enter', 
+    query('td', [
+      style({ opacity: 0, width: '0px' }),
+      stagger(50, [
+    animate('5s', keyframes([
+     style({
+transform: "translateZ(-1400px) translateX(-1000px);opacity: 0"
+     }),
+     style({
+transform: "translateZ(0) translateX(0);opacity: 1"
+     }),  
+    ])),
+  ]),
+  ]))
+])]
 })
 export class DealsComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
-  displayedColumns: string[] = ['select', 'id', 'employee_name', 'employee_salary', 'employee_age', 'action'];
+  
+  displayedColumns: string[] = [
+    "select",
+    "ID",
+    "Name",
+    "Category",
+    "SubCategory",
+    "Coupon",
+    "Logo",
+    "action"
+  ];
   dataSource: MatTableDataSource<any>;
 
   resultsLength = 0;
@@ -44,8 +69,12 @@ export class DealsComponent implements AfterViewInit, OnInit {
     // });
     let pagination = this.dataSource.paginator;
     for (
-      let index = pagination.pageIndex + (pagination.pageSize - 1) * pagination.pageIndex;
-      index < this.dataSource.paginator.pageSize + pagination.pageIndex + (pagination.pageSize - 1) * pagination.pageIndex;
+      let index =
+        pagination.pageIndex + (pagination.pageSize - 1) * pagination.pageIndex;
+      index <
+      this.dataSource.paginator.pageSize +
+        pagination.pageIndex +
+        (pagination.pageSize - 1) * pagination.pageIndex;
       index++
     ) {
       console.log(index);
@@ -61,14 +90,23 @@ export class DealsComponent implements AfterViewInit, OnInit {
     if (!this.selection.isSelected(row)) {
       console.log(row);
     } else {
-      console.log('unselected');
+      console.log("unselected");
     }
 
     this.selection.toggle(row);
   }
 
-  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient) {
-    this.http.get('http://dummy.restapiexample.com/api/v1/employees').subscribe((res: any) => {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private dataService: DataService
+  ) {
+    // this.http.get('http://dummy.restapiexample.com/api/v1/employees').subscribe((res: any) => {
+    //   this.dataSource = new MatTableDataSource(res);
+    //   this.dataSource.paginator = this.paginator;
+    //   this.dataSource.sort = this.sort;
+    // });
+    this.dataService.getAllDeals().subscribe((res: any) => {
       this.dataSource = new MatTableDataSource(res);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -89,6 +127,6 @@ export class DealsComponent implements AfterViewInit, OnInit {
 
   editOffer(data) {
     console.log(data);
-    this.router.navigate(['/edit/', '4a742718-6891-4816-88d4-b062a45196d4']);
+    this.router.navigate(["edit/", data.ID]);
   }
 }

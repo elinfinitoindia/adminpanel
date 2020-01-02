@@ -23,18 +23,25 @@
             </mat-select>
           </mat-form-field> -->
           <mat-form-field>
-            <mat-select placeholder="Select Category" (ngModel)="(deal.CategoryID)" name="CategoryID">
-              <mat-option *ngFor="let category of categories" [value]="category.ID" (click)="getCategories(category)">
+            <mat-select placeholder="Select Category" (ngModel)="(deal.CategoryID)" name="CategoryID" (selectionChange)="selectsubcategory($event)">
+              <mat-option *ngFor="let category of categories" [value]="category.ID" >
                 {{ category.Name }}
-              </mat-option> </mat-select
-            >category
+              </mat-option> 
+              </mat-select> Category
+          </mat-form-field>
+            <mat-form-field>
+            <mat-select placeholder="Select Sub Category" (ngModel)="(deal.SubCategoryID)" name="SubCategoryID">
+              <mat-option *ngFor="let subcat of subcate" [value]="subcat.ID" >
+                {{ subcat.Name }}
+              </mat-option> </mat-select> Sub Category
           </mat-form-field>
           <mat-form-field>
-            <mat-select placeholder="Select Store" (ngModel)="(deal.StoreID)" name="StoreID">
-              <mat-option *ngFor="let store of stores" [value]="store.ID">
+            <mat-select
+             placeholder="Select Store" (ngModel)="(deal.StoreID)" name="StoreID">
+              <mat-option *ngFor="let store of stores" [value]="store">
                 {{ store.Name }}
               </mat-option> </mat-select
-            >category
+              >Store
           </mat-form-field>
           <!-- <mat-form-field>
             <mat-select placeholder="Select Store" (click)="getStores()" [(ngModel)]="deal.Store" name="Store">
@@ -43,10 +50,10 @@
               </mat-option>
             </mat-select>
           </mat-form-field> -->
-          <mat-form-field>
+          <mat-form-field >
             <mat-select placeholder="Select Image" (selectionChange)="doSomething($event)" (ngModel)="(deal.Logo)" name="Logo">
-              <mat-option *ngFor="let image of images" [value]="image.key" style="height:6em" (change)="preview(image)">
-                <img src="https://appimageselinfinito.s3.us-east-2.amazonaws.com/{{ image.key }}" alt="" style="width:100px;height:50px;" />
+              <mat-option *ngFor="let image of images" [value]="image.key" style="height:6em">
+                <img src="https://dealslocker.s3.ap-south-1.amazonaws.com/{{ image.key }}" alt="" style="width:100px;height:50px;" />
                 {{ image.key }}
               </mat-option>
             </mat-select>

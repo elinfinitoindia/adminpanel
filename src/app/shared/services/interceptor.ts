@@ -4,24 +4,29 @@ import { _throw as throwError } from 'rxjs/observable/throw';
 import { catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { SharedService } from './shared.service';
+import { DataService } from './data.service';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
-  constructor( private sharedService: SharedService) {}
+  constructor( private sharedService: SharedService , private dataService: DataService) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // request = request.clone({
     //   headers: headers
     // });
-    const token: string = localStorage.getItem('Token');
+    const token: any = JSON.parse(localStorage.getItem("Token"));
 
     if (token) {
-      request = request.clone({
-        setHeaders: {
-          "Authorization": token,
-          "Access-Control-Allow-Origin":"*",
-          "Content-Type":"application/json"
-        }
-      });
+    console.log(token.Value);
+    
+ request = request.clone({
+   setHeaders: {
+     Authorization: "Bearer " + token.Value,
+     "Access-Control-Allow-Origin": "*",
+     "Content-Type": "application/json"
+   }
+ });      
+      
+      
 
       // request = request.clone({
       //   headers: request.headers.set('Access-Control-Allow-Origin', '*'),
@@ -42,6 +47,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         // alert(data);
+        console.log(JSON.stringify(error));
         this.sharedService.handleError(error);
         return throwError(error);
       })

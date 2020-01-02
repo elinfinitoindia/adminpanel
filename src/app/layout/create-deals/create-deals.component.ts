@@ -1,18 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Deals } from 'src/app/models/deals';
-import { DataService } from 'src/app/shared/services/data.service';
-import { map } from 'rxjs/operators';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { Deals } from "src/app/models/deals";
+import { DataService } from "src/app/shared/services/data.service";
+import { map } from "rxjs/operators";
+import { NgForm } from "@angular/forms";
+import { Router } from "@angular/router";
 
 const params = {
-  Bucket: 'appimageselinfinito'
+  Bucket: "appimageselinfinito"
 };
 
 @Component({
-  selector: 'app-create-deals',
-  templateUrl: './create-deals.component.html',
-  styleUrls: ['./create-deals.component.scss']
+  selector: "app-create-deals",
+  templateUrl: "./create-deals.component.html",
+  styleUrls: ["./create-deals.component.scss"]
 })
 export class CreateDealsComponent implements OnInit {
   deal;
@@ -23,8 +23,9 @@ export class CreateDealsComponent implements OnInit {
   s3;
   images;
   selectedImage;
+  subcate;
 
-  @ViewChild('dealForm') dealForm: NgForm;
+  @ViewChild("dealForm") dealForm: NgForm;
 
   constructor(private dataService: DataService, private router: Router) {}
 
@@ -76,7 +77,7 @@ export class CreateDealsComponent implements OnInit {
       this.images = response.Contents.map(data => {
         const row: any = {};
         row.url = this.dataService.getUrl(data.Key);
-        row.key = data.Key.split('/').pop();
+        row.key = data.Key.split("/").pop();
         row.year = data.LastModified.getUTCFullYear();
         return row;
       });
@@ -85,7 +86,7 @@ export class CreateDealsComponent implements OnInit {
       this.categories = res;
     });
 
-    this.dataService.getStores().subscribe((res: any) => {
+    this.dataService.getShoppingStores().subscribe((res: any) => {
       this.stores = res;
     });
   }
@@ -103,22 +104,39 @@ export class CreateDealsComponent implements OnInit {
   getCategory(data) {}
 
   createDeal(data) {
-    data.Logo = 'https://appimageselinfinito.s3.us-east-2.amazonaws.com/' + data.Logo;
+    console.log(data);
+    if (data.Logo.length <= 0) {
+      data.Logo = data.StoreID.Logo;
+    }
+    else{
+      data.Logo = "https://dealslocker.s3.ap-south-1.amazonaws.com/" + data.Logo;
+    }
+    if(data.StoreID !== null){
+      data.StoreID = data.StoreID.ID;
+    }
+    
     this.dataService.createDeals(data).subscribe((res: any) => {
       console.log(res);
     });
   }
 
   doSomething(data) {
-    this.selectedImage = 'https://appimageselinfinito.s3.us-east-2.amazonaws.com/' + data.value;
+    this.selectedImage =
+      "https://dealslocker.s3.ap-south-1.amazonaws.com/" + data.value;
   }
 
   canDeactivate() {
-    if (this.dealForm.dirty == true) return window.confirm('Discard changes?');
+    if (this.dealForm.dirty == true) return window.confirm("Discard changes?");
     return true;
   }
 
   goBack() {
-    this.router.navigate(['dashboard']);
+    this.router.navigate(["dashboard"]);
+  }
+
+  selectsubcategory(data) {
+    this.dataService.getCategories(data.value).subscribe((res: any) => {
+      this.subcate = res;
+    });
   }
 }

@@ -1,3 +1,5 @@
+
+ <ng-container *ngIf="isloaded">
 <div class="example-container">
     <mat-card>
       <mat-card-header>
@@ -26,6 +28,59 @@
               </mat-option>
             </mat-select>
           </mat-form-field> -->
+             <mat-form-field>
+            <mat-select
+              placeholder="Select Category"
+              [(ngModel)]="product.CategoryID"
+              name="CategoryID"
+            >
+              <mat-option
+                *ngFor="let category of categories"
+                [value]="category.ID"
+              >
+                {{ category.Name }}
+                {{ category.ID }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select
+              placeholder="Select Sub Category"
+              [(ngModel)]="product.SubCategoryID"
+              name="SubCategoryID"
+            >
+              <mat-option
+                *ngFor="let subcats of subcategory"
+                [value]="subcats.ID"
+              >
+                {{ subcats.Name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select
+              placeholder="Select Image"
+              (selectionChange)="doSomething($event)"
+              [(ngModel)]="product.Logo"
+              name="Logo"
+            >
+              <mat-option
+                *ngFor="let image of images"
+                [value]="image.key"
+                style="height:6em"
+                (change)="preview(image)"
+              >
+                <img
+                  src="https://dealslocker.s3.ap-south-1.amazonaws.com/{{
+                    image.key
+                  }}"
+                  alt=""
+                  style="width:100px;height:50px;"
+                />
+                {{ image.key }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
           <mat-form-field>
             <input matInput placeholder="Enter Link" required [(ngModel)]="product.Url" name="Url" />
           </mat-form-field>
@@ -34,6 +89,13 @@
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
+
+           <img
+                  [src]="product.Logo"
+                  alt=""
+                  style="width:100px;height:50px;"
+                />
+
           <!-- <button mat-raised-button color="primary" type="submit">Create</button> -->
           <button type="submit" class="btn btn-success" [disabled]="productForm.invalid">Submit</button>
         </form>
@@ -41,5 +103,5 @@
       </mat-card-content>
     </mat-card>
   </div>
-  <div>
-  </div>
+ </ng-container>
+ 

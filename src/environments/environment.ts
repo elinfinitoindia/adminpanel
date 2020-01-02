@@ -4,10 +4,10 @@
 
 export const environment = {
          production: false,
-         IdentityPoolId: 'us-east-2:6c312384-10ee-4e13-bc24-57131b12ce73',
-         configRegion: 'us-east-2',
-         Bucket: 'appimageselinfinito',
-         apiUrl: 'http://192.168.225.44:52044/api/'
+         IdentityPoolId: "ap-south-1:824dc0b6-f6cc-4dee-8ac9-24a33a86a352",
+         configRegion: "ap-south-1",
+         Bucket: "dealslocker",
+         apiUrl: "http://localhost:5000/api/"
        };
 
 /*

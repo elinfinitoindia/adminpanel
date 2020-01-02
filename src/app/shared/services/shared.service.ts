@@ -45,6 +45,7 @@ export class SharedService {
   }
 
   handleError(data){
-    this.createToast(data.statusText);
+   console.log(JSON.stringify(data));
+   
   }
 }

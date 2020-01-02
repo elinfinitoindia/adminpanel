@@ -16,8 +16,20 @@ const appearance: MatFormFieldDefaultOptions = {
 };
 
 @NgModule({
-  imports: [CommonModule, LayoutRoutingModule, TranslateModule, AppMaterialModule, FormsModule],
-  declarations: [LayoutComponent, NavComponent, TopnavComponent, SidebarComponent, Screen1Component],
+  imports: [
+    CommonModule,
+    LayoutRoutingModule,
+    TranslateModule,
+    AppMaterialModule,
+    FormsModule
+  ],
+  declarations: [
+    LayoutComponent,
+    NavComponent,
+    TopnavComponent,
+    SidebarComponent,
+    Screen1Component
+  ],
   entryComponents: [Screen1Component],
   providers: [
     {

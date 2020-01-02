@@ -33,7 +33,7 @@ const routes: Routes = [
         loadChildren: './edit/edit.module#EditModule'
       },
       {
-        path: 'products',
+        path: 'createproducts',
         loadChildren: './createproducts/createproducts.module#CreateproductsModule'
       },
       {
