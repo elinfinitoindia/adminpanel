@@ -13,7 +13,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
     // request = request.clone({
     //   headers: headers
     // });
-    const token: any = JSON.parse(localStorage.getItem("Token"));
+    
+
+    
+    const t = 'Token';
+    const token = JSON.parse(localStorage.getItem(t));
 
     if (token) {
     console.log(token.Value);

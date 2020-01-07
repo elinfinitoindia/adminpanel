@@ -96,7 +96,7 @@ export class Screen1Component implements OnInit {
         this.categories = res;
         console.log(this.categories);
       });
-      this.dataService.listFiles().then(response => {
+      this.dataService.listFilesForStores().then(response => {
         this.images = response.Contents.map(data => {
           const row: any = {};
           row.url = this.dataService.getUrl(data.Key);
@@ -184,9 +184,9 @@ export class Screen1Component implements OnInit {
         this.dataService.getDealCategories().subscribe((res: any) => {
           this.subcats = res;
         });
-        this.dataService.getMajorCategories().subscribe((res: any) => {
-          this.storeList = res;
-        });
+        // this.dataService.getMajorCategories().subscribe((res: any) => {
+        //   this.storeList = res;
+        // });
         this.dataService.getStoreLogoName().subscribe((res: any) => {
           this.storeLogoName = res;
         });
@@ -228,7 +228,7 @@ export class Screen1Component implements OnInit {
           this.categoryList = res;
           console.log(this.categoryList);
         });
-        this.dataService.listFiles().then(response => {
+        this.dataService.listFilesForStores().then(response => {
           this.images = response.Contents.map(data => {
             const row: any = {};
             row.url = this.dataService.getUrl(data.Key);
@@ -236,8 +236,10 @@ export class Screen1Component implements OnInit {
             row.year = data.LastModified.getUTCFullYear();
             return row;
           });
+          console.log(response);
+          
         });
-        console.log(this.images);
+        
       }
     }
   }
@@ -287,6 +289,7 @@ export class Screen1Component implements OnInit {
     }
     if (data === 3) {
       this.isSubStore = true;
+       this.hasimage = true;
       this.dataService.getFeatureSubCategory().subscribe((res: any) => {
         console.log(res);
         this.parentStore = res;
@@ -327,12 +330,12 @@ export class Screen1Component implements OnInit {
     if (data === 15) {
       this.isSubCategory = true;
       this.isStore = false;
-      this.dataService.getDealCategories().subscribe((res: any) => {
+      this.dataService.getMajorCategories().subscribe((res: any) => {
         this.subcats = res;
       });
-      this.dataService.getMajorCategories().subscribe((res: any) => {
-        this.storeList = res;
-      });
+      // this.dataService.getMajorCategories().subscribe((res: any) => {
+      //   this.storeList = res;
+      // });
       this.dataService.getStoreLogoName().subscribe((res: any) => {
         this.storeLogoName = res;
       });
@@ -358,12 +361,12 @@ export class Screen1Component implements OnInit {
     data.Url = this.storeUrl;
     if (data.StoreType === 1) {
       data.Url[0].Name =
-        "https://dealslocker.s3.ap-south-1.amazonaws.com/" + data.Logo;
+        "https://dealslocker.s3.ap-south-1.amazonaws.com/Stores/" + data.Logo;
       data.Logo =
-        "https://dealslocker.s3.ap-south-1.amazonaws.com/" + data.Logo;
+        "https://dealslocker.s3.ap-south-1.amazonaws.com/Stores/" + data.Logo;
     } else {
       data.Logo =
-        "https://dealslocker.s3.ap-south-1.amazonaws.com/" + data.Logo;
+        "https://dealslocker.s3.ap-south-1.amazonaws.com/Stores/" + data.Logo;
     }
     this.dataService.createStore(data).subscribe((res: any) => {
       console.log(res);
@@ -372,6 +375,16 @@ export class Screen1Component implements OnInit {
 
   editStore(data) {
     console.log(data);
+      data.Url = this.storeUrl;
+      if (data.StoreType === 1 || data.StoreType == 2) {
+        data.Url[0].Name =
+          "https://dealslocker.s3.ap-south-1.amazonaws.com/Stores/" + data.Logo;
+        data.Logo =
+          "https://dealslocker.s3.ap-south-1.amazonaws.com/Stores" + data.Logo;
+      } else {
+        data.Logo =
+          "https://dealslocker.s3.ap-south-1.amazonaws.com/Stores" + data.Logo;
+      }
 
     this.dataService.updateStore(this.item.ID, data).subscribe((res: any) => {
       console.log(res);

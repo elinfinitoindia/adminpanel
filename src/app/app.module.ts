@@ -6,13 +6,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { HttpModule } from "@angular/http";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DeactivateGuardService } from './shared/services/deactivate-guard.service';
 import { AppMaterialModule } from './app-material/app-material.module';
 import { FormsModule } from '@angular/forms';
 import { HttpErrorInterceptor } from './shared/services/interceptor';
+import { SharedService } from './shared/services/shared.service';
 // AoT requires an exported function for factories
 export const createTranslateLoader = (http: HttpClient) => {
   /* for development
@@ -43,9 +44,15 @@ export const createTranslateLoader = (http: HttpClient) => {
     }),
     AppMaterialModule
   ],
-  providers: [DeactivateGuardService, 
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true 
-    }],
+  providers: [
+    DeactivateGuardService,
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

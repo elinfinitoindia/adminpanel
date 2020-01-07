@@ -161,6 +161,42 @@ export class DataService {
       .promise();
   }
 
+  listFilesForStores() {
+    return this.s3
+      .listObjectsV2({
+        Bucket: environment.Bucket,
+        Prefix: "Stores/"
+      })
+      .promise();
+  }
+
+  listFilesForDeals() {
+    return this.s3
+      .listObjectsV2({
+        Bucket: environment.Bucket,
+        Prefix: "Deals/"
+      })
+      .promise();
+  }
+
+  listFilesForCategory() {
+    return this.s3
+      .listObjectsV2({
+        Bucket: environment.Bucket,
+        Prefix: "Category/"
+      })
+      .promise();
+  }
+
+  listFilesForProduct() {
+    return this.s3
+      .listObjectsV2({
+        Bucket: environment.Bucket,
+        Prefix: "Product/"
+      })
+      .promise();
+  }
+
   getUrl(key: string) {
     return this.s3.getSignedUrl("getObject", {
       Bucket: environment.Bucket,

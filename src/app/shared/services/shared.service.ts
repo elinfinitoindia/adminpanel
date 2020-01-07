@@ -3,7 +3,7 @@ import { RouterEvent } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn:"root"
 })
 export class SharedService {
   constructor(private router: RouterEvent, private _snackBar: MatSnackBar) {}
@@ -23,7 +23,7 @@ export class SharedService {
   }
 
   getToken(){
-   return localStorage.getItem("Token");
+   return localStorage.getItem('Token');
   }
 
   setUser(user) {
